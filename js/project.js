@@ -21,14 +21,7 @@ const ca = (p) => {
 
     setInterval(logicLoop, game.config.logicUpdate);
 
-    game.bots.push(
-      new Bot(
-        300,
-        100,
-        50,
-        p.color(p.random(256), p.random(256), p.random(256))
-      )
-    );
+  
   };
 
   p.draw = function () {
