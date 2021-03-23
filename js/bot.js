@@ -39,31 +39,38 @@ class Bot extends Entity{
         super(sx,sy,Math.random()*2*Math.PI,owner,maxhealth,speed,rspeed,size,color);
 
         this.ai=ai;
-        
-        this.velocity=0;
+        this.maxSpeed=10;
+        this.speed=0;
+        this.acceleration=1;
         this.va=Math.PI/18;
     }
 
 
     draw(){
-        buffer.translate(this.x,this.y);
-        buffer.rotate(this.angle);
-        buffer.fill(this.color);
+        game.buffer.translate(this.x,this.y);
+        game.buffer.rotate(this.angle);
+        game.buffer.fill(this.color);
 
-        buffer.circle(0,0,this.size);
-        buffer.circle(this.size/5,0,this.size/10);
+        game.buffer.circle(0,0,this.size);
+        game.buffer.circle(this.size/5,0,this.size/10);
 
-       // buffer.rect(-5,-5,10,10);
+       // game.buffer.rect(-5,-5,10,10);
 
-        buffer.rotate(-this.angle);
-        buffer.translate(-this.x,-this.y);
+        game.buffer.rotate(-this.angle);
+        game.buffer.translate(-this.x,-this.y);
     }
 
 
 
     
     step(){
-        var s=this.ai({x:this.x,y:this.y},this.a);
+        this.border();
+        this.forward();
+
+
+
+        
+        var s=this.ai({x:this.x,y:this.y,speed:this.speed,angle:this.angle,health:this.health});
         switch(s){
             case "LEFT":
             this.turnLeft();
@@ -71,15 +78,49 @@ class Bot extends Entity{
             case "RIGHT":
             this.turnRight();
             break;
+            case "FASTER":
+            this.faster();
+            break;
+            case "SLOWER":
+            this.slower();
+
+
 
             default:
             break;
         }
 
+
+
     }
 
-    turnRight(){this.angle-=this.va;}
-    turnLeft(){this.angle+=this.va;}
+    forward() {
+        this.x = Math.max(this.x + this.speed * Math.cos(this.angle), 0)
+        this.y = Math.max(this.y + this.speed * Math.sin(this.angle), 0)
+      }
 
 
+    turnRight(){this.angle+=this.va;}
+    turnLeft(){this.angle-=this.va;}
+    
+    faster(){this.speed=Math.min(this.speed+this.acceleration,this.maxSpeed)}
+
+    //maximum reverse speed is half of forward one
+    slower(){this.speed=Math.max(this.speed-this.acceleration,-this.maxSpeed/2)}
+
+
+    border() {
+        if (this.x > game.buffer.width) {
+          this.x = game.buffer.width;
+        }
+        if (this.y >  game.buffer.height - 10) {
+          this.y = game.buffer.height - 10;
+        }
+        if (this.x <= 0) {
+          this.x = 0;
+        }
+        if (this.y <= 0) {
+          this.y = 0;
+        }
+      }
 }

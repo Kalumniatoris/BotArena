@@ -21,9 +21,25 @@
     </div>
 
 <div class="text-light">
-    function(pos,v){
-    <textarea id="code" class="form-control"></textarea>
+    function(bot){
+    <textarea id="code" class="form-control" rows=10 >
+        if(bot.speed<5){return "FASTER";}
+        if(bot.x<200 && bot.angle>0){return "LEFT";}
+        if(bot.x>500 && bot.angle<Math.PI){return "RIGHT";}
+
+        
+        if(bot.y<200){return "LEFT";}
+        if(bot.y>400){return "RIGHT";}
+    </textarea>
     }
+
+    <div class="container">
+        <span>Click on 'arena' to add bot with ai from textarea</span>
+
+        <span>Current 'returns': FASTER, SLOWER, LEFT, RIGHT</span>
+        <br>
+        <span>bot contains: x,y,speed,angle,health</span>
+    </div>
 </div>
 
  <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js"></script>
