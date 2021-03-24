@@ -7,11 +7,12 @@ game.config = {
   logicUpdate: 30,
 };
 
+game.functionSt= "function(bot){";
 
 game.bots = [];
 
 const ca = (p) => {
-  p.setup = function () {
+    p.setup = function () {
     var candiv = p.select("#arenaCanvas");
     p.createCanvas(candiv.width, 500);
     game.buffer = p.createGraphics(p.width, p.height);
@@ -55,9 +56,9 @@ function logicLoop() {
 
 function addBot(x, y, p) {
   var newAi =
-    "function(bot){" +
+   game.functionSt +
     'let game="";\n' +
-    p.select("#code").value() +
+    cmCode.getValue() +
     "\n return -1;}";
 
   console.log(newAi.toString());
@@ -67,6 +68,6 @@ function addBot(x, y, p) {
   console.log(fun);
 
   game.bots.push(
-    new Bot(x, y, 40, p.color(p.random(256), p.random(256), p.random(256)), fun)
+    new Bot(x, y, 20, p.color(p.random(256), p.random(256), p.random(256)), fun)
   );
 }

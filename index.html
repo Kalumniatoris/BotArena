@@ -7,8 +7,10 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <!--code mirror css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5/lib/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.60.0/theme/abcdef.min.css">
+    <title>Bots</title>
   </head>
   <body class=" bg-dark">
     <nav class="navbar navbar-dark bg-dark">
@@ -20,19 +22,16 @@
     <div id="arenaCanvas"></div>
     </div>
 
-<div class="text-light">
-    function(bot){
-    <textarea id="code" class="form-control" rows=10 >
-        if(bot.speed<5){return "FASTER";}
-        if(bot.x<200 && bot.angle>0){return "LEFT";}
-        if(bot.x>500 && bot.angle<Math.PI){return "RIGHT";}
+<div class="text-light container">
+    <span id="codeSt">function(bot){</span>
 
-        
-        if(bot.y<200){return "LEFT";}
-        if(bot.y>400){return "RIGHT";}
-    </textarea>
-    }
+        <div id="codeArea"></div>
+   <!-- <textarea id="code" class="form-control" rows=10 >
+     
+    </textarea>-->
 
+
+    <span>}</span>
     <div class="container">
         <span>Click on 'arena' to add bot with ai from textarea</span>
 
@@ -42,12 +41,18 @@
     </div>
 </div>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5/lib/codemirror.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5/mode/javascript/javascript.min.js"></script>
+
  <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>   
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
  <script src="./js/project.js"></script>
  
  <script src="./js/bot.js"></script>
+ <script src="./js/uis.js"></script>
 
 </body>
 </html>
