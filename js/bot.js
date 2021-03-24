@@ -141,6 +141,7 @@ class Bot extends Entity {
         this.fire();
         break;
       case "SPLIT":
+
         this.split();
 
         break;
@@ -187,6 +188,7 @@ class Bot extends Entity {
   }
 
   split() {
+    if(!this.splitReady){return;}
     this.splitCooldown=this.maxSplitCooldown;
     this.splitReady=false;
     this.maxhealth=Math.floor((this.maxhealth/2)*0.9-1);
