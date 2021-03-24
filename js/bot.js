@@ -40,6 +40,10 @@ class Bot extends Entity {
     this.bulletSpeed = 10;
     this.maxfireCooldown = 10;
     this.fireCooldown = 10;
+
+    this.splitReady=false;
+    this.splitCooldown=150;
+    this.maxSplitCooldown=150;
   }
 
   draw() {
@@ -83,13 +87,23 @@ class Bot extends Entity {
 
   step() {
     super.step();
+  //  console.log(this.health);
     if (this.health <= 0) {
+  //    console.log("killing");
       this.killMe(game.bots);
     }
+
     if (this.fireCooldown <= 0) {
       this.fireReady = true;
     }
     this.fireCooldown -= 1;
+
+    
+    if (this.splitCooldown <= 0) {
+      this.splitReady = true;
+    }
+    this.splitCooldown -= 1;
+
     this.border();
     this.forward();
 
@@ -102,8 +116,9 @@ class Bot extends Entity {
         speed: this.speed,
         angle: this.angle,
         health: this.health,
+        maxhealth:this.maxhealth
       },
-      { count: bc, max: this.maxBullets },
+      { count: bc, max: this.maxBullets, speed:this.bulletSpeed },
       { height: game.buffer.height, width: game.buffer.width }
     );
 
@@ -124,6 +139,10 @@ class Bot extends Entity {
       case "FIRE":
       case "SHOOT":
         this.fire();
+        break;
+      case "SPLIT":
+        this.split();
+
         break;
       case "HARM_ME":
         this.health -= this.maxhealth / 10;
@@ -165,5 +184,17 @@ class Bot extends Entity {
 
   killMe(){
     super.killMe(game.bots);
+  }
+
+  split() {
+    this.splitCooldown=this.maxSplitCooldown;
+    this.splitReady=false;
+    this.maxhealth=Math.floor((this.maxhealth/2)*0.9-1);
+    this.health=Math.floor((this.health/2)*0.9-1);
+    
+    game.bots.push(
+      new Bot(this.x, this.y, this.size, this.color, this.ai,this.owner,this.maxhealth,this.speed,this.rspeed)
+    );
+
   }
 }

@@ -57,8 +57,9 @@ class Entity {
   
     draw() {}
 
-    step() {this.fixangle();}
-
+    step() {this.fixangle();
+    
+    }
 
     border(mode = "border") {
       switch (mode){

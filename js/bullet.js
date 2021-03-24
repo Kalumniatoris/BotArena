@@ -44,5 +44,7 @@ class Bullet extends Entity {
     killMe(){
       super.killMe(game.bullets);
     }
+
+    
   }
   

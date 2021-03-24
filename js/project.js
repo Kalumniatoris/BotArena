@@ -14,6 +14,7 @@ game.bullets=[];
 const ca = (p) => {
     p.setup = function () {
     var candiv = p.select("#arenaCanvas");
+
     p.createCanvas(candiv.width, 500);
     game.buffer = p.createGraphics(p.width, p.height);
     p.background(0);
@@ -26,14 +27,7 @@ const ca = (p) => {
   };
 
   p.draw = function () {
-
     p.image(game.buffer, 0, 0);
- /*   p.push();
-    p.fill(255);
-    p.textSize(15);
-    p.text(Math.min(Math.floor(p.frameRate()),game.config.drawUpdate),10,20)
-    p.pop();*/
-    //  p.circle(p.mouseX,p.mouseY,100);
   };
 
   p.mouseClicked = function () {
@@ -45,11 +39,11 @@ const ca = (p) => {
     ) {
       return;
     }
-    addBot(p.mouseX, p.mouseY, p);
+    game.addBotWithCMAI(p.mouseX, p.mouseY, p);
   };
 };
 
-let arenaCanvas = new p5(ca, "arenaCanvas");
+game.arenaCanvas = new p5(ca, "arenaCanvas");
 
 function drawLoop() {
   game.buffer.background(0);
@@ -62,11 +56,11 @@ function logicLoop() {
   game.bullets.forEach((x) => x.step());
 }
 
-function addBot(x, y, p) {
+game.addBotWithCMAI=function(x, y, p) {
   var newAi =
    game.functionSt +
     'let game="";\n' +
-    cmCode.getValue() +
+    game.cmCode.getValue() +
     "\n return -1;}";
 
   console.log(newAi.toString());
@@ -76,6 +70,6 @@ function addBot(x, y, p) {
   console.log(fun);
 
   game.bots.push(
-    new Bot(x, y, 20, p.color(p.random(256), p.random(256), p.random(256)), fun,"T"+Math.floor(Math.random()*100000000))
+    new Bot(x, y, 20, p.color(p.random(256), p.random(256), p.random(256)), fun,"T"+Math.floor(Math.random()*100000000),100)
   );
 }

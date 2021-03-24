@@ -1,7 +1,7 @@
-var cmCode
+//game.cmCode
 
 document.body.onload=()=>{
-  cmCode=CodeMirror($("#codeArea")[0],{
+  game.cmCode=CodeMirror($("#codeArea")[0],{
     value:   
                 'if(bot.speed<5){return "FASTER";}\n'+
                 'if(bot.x<200 && bot.angle>0){return "LEFT";}\n'+
