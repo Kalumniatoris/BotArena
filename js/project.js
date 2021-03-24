@@ -3,21 +3,21 @@ var game = {};
 game.buffer;
 
 game.config = {
-  drawUpdate: 30,
+  drawUpdate: 60,
   logicUpdate: 30,
 };
 
-game.functionSt= "function(bot){";
+game.functionSt= "function(bot,bullets,arena){";
 
 game.bots = [];
-
+game.bullets=[];
 const ca = (p) => {
     p.setup = function () {
     var candiv = p.select("#arenaCanvas");
     p.createCanvas(candiv.width, 500);
     game.buffer = p.createGraphics(p.width, p.height);
     p.background(0);
-
+      p.frameRate(game.config.drawUpdate);  
     setInterval(drawLoop, game.config.drawUpdate);
 
     setInterval(logicLoop, game.config.logicUpdate);
@@ -26,7 +26,13 @@ const ca = (p) => {
   };
 
   p.draw = function () {
+
     p.image(game.buffer, 0, 0);
+ /*   p.push();
+    p.fill(255);
+    p.textSize(15);
+    p.text(Math.min(Math.floor(p.frameRate()),game.config.drawUpdate),10,20)
+    p.pop();*/
     //  p.circle(p.mouseX,p.mouseY,100);
   };
 
@@ -48,10 +54,12 @@ let arenaCanvas = new p5(ca, "arenaCanvas");
 function drawLoop() {
   game.buffer.background(0);
   game.bots.forEach((x) => x.draw());
+  game.bullets.forEach((x) => x.draw());
 }
 
 function logicLoop() {
   game.bots.forEach((x) => x.step());
+  game.bullets.forEach((x) => x.step());
 }
 
 function addBot(x, y, p) {
@@ -68,6 +76,6 @@ function addBot(x, y, p) {
   console.log(fun);
 
   game.bots.push(
-    new Bot(x, y, 20, p.color(p.random(256), p.random(256), p.random(256)), fun)
+    new Bot(x, y, 20, p.color(p.random(256), p.random(256), p.random(256)), fun,"T"+Math.floor(Math.random()*100000000))
   );
 }

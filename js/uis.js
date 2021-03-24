@@ -9,7 +9,9 @@ document.body.onload=()=>{
 
     
                 'if(bot.y<200){return "LEFT";}\n'+
-                'if(bot.y>400){return "RIGHT";}\n',
+                'if(bot.y>400){return "RIGHT";}\n'+
+                'return "FIRE";'
+                ,
                 
 
                 mode:  "javascript",
@@ -17,5 +19,7 @@ document.body.onload=()=>{
 
 
   })
-    
+  
+
+  $("#codeSt")[0].innerText=game.functionSt;
 }
