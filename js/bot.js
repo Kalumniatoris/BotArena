@@ -263,6 +263,10 @@ class Bot extends Entity {
     }
     // else{game.bullets.pop();}
   }
+
+  killMe(){
+    super.killMe(game.bots);
+  }
 }
 
 class Bullet extends Entity {
