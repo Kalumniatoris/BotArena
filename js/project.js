@@ -17,11 +17,15 @@ const ca = (p) => {
 
     p.createCanvas(candiv.width, 500);
     game.buffer = p.createGraphics(p.width, p.height);
-    p.background(0);
+  //  p.background(0);
       p.frameRate(game.config.drawUpdate);  
-    setInterval(drawLoop, game.config.drawUpdate);
 
-    setInterval(logicLoop, game.config.logicUpdate);
+ 
+   // gamesetInterval(drawLoop, game.config.drawUpdate);
+  
+    game.startDraw();
+    game.startLogic();
+    //setInterval(logicLoop, game.config.logicUpdate);
 
   
   };
@@ -45,16 +49,18 @@ const ca = (p) => {
 
 game.arenaCanvas = new p5(ca, "arenaCanvas");
 
-function drawLoop() {
+game.drawLoop=function() {
   game.buffer.background(0);
   game.bots.forEach((x) => x.draw());
   game.bullets.forEach((x) => x.draw());
 }
 
-function logicLoop() {
+
+game.logicLoop=function() {
   game.bots.forEach((x) => x.step());
   game.bullets.forEach((x) => x.step());
 }
+
 
 game.addBotWithCMAI=function(x, y, p) {
   var newAi =
@@ -72,4 +78,25 @@ game.addBotWithCMAI=function(x, y, p) {
   game.bots.push(
     new Bot(x, y, 20, p.color(p.random(256), p.random(256), p.random(256)), fun,"T"+Math.floor(Math.random()*100000000),100)
   );
+}
+
+
+
+game.startLogic = function(){
+  game.logic=setInterval(game.logicLoop, game.config.logicUpdate);
+}
+
+game.pauseLogic=function(){
+  clearInterval(game.logic);
+}
+
+
+game.startDraw = function(){
+  console.log("startDraw");
+  game.drawI=setInterval(game.drawLoop, game.config.drawUpdate);
+
+}
+
+game.pauseDraw=function(){
+  clearInterval(game.drawI);
 }

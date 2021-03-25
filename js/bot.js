@@ -40,10 +40,12 @@ class Bot extends Entity {
     this.bulletSpeed = 10;
     this.maxfireCooldown = 10;
     this.fireCooldown = 10;
+    this.bulletDamage =10;
+
 
     this.splitReady=false;
-    this.splitCooldown=150;
-    this.maxSplitCooldown=150;
+    this.splitCooldown=game.config.logicUpdate;
+    this.maxSplitCooldown=game.config.logicUpdate;
   }
 
   draw() {
@@ -175,7 +177,9 @@ class Bot extends Entity {
         game.bullets.filter((b) => b.owner == this.owner).length <
         this.maxBullets
       ) {
-        game.bullets.push(new Bullet(this));
+        let bullet=new Bullet(this);
+        bullet.damage=this.bulletDamage;
+        game.bullets.push(bullet);
       }
       this.fireReady = false;
       this.fireCooldown = this.maxfireCooldown;
@@ -187,6 +191,7 @@ class Bot extends Entity {
     super.killMe(game.bots);
   }
 
+
   split() {
     if(!this.splitReady){return;}
     this.splitCooldown=this.maxSplitCooldown;
@@ -194,9 +199,22 @@ class Bot extends Entity {
     this.maxhealth=Math.floor((this.maxhealth/2)*0.9-1);
     this.health=Math.floor((this.health/2)*0.9-1);
     
+    var newBot=new Bot(this.x, this.y, this.size, this.color, this.ai,this.owner,this.maxhealth,this.speed,this.rspeed)
+    
+    newBot.size*=0.9;
+    this.size*=0.9;
+    newBot.bulletSize*=0.7;
+    this.bulletSize*=0.7;
+    this.bulletDamage*=0.7;
+    newBot.bulletDamage*=0.7;
+    this.maxBullets+=1;
+    newBot.maxBullets+=1;
+
     game.bots.push(
-      new Bot(this.x, this.y, this.size, this.color, this.ai,this.owner,this.maxhealth,this.speed,this.rspeed)
-    );
+      newBot
+      );
+
+
 
   }
 }
