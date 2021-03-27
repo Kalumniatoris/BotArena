@@ -46,6 +46,9 @@ class Bot extends Entity {
     this.splitReady=false;
     this.splitCooldown=game.config.logicUpdate;
     this.maxSplitCooldown=game.config.logicUpdate;
+
+    this.seeAngle=Math.PI/5;
+    this.seeDistance=1000;
   }
 
   draw() {
@@ -85,6 +88,19 @@ class Bot extends Entity {
     );
     //endhealthbar
     game.buffer.translate(-this.x, -this.y);
+
+
+    if(game.config.showViews){
+    let ay=this.y + this.seeDistance * Math.sin(this.angle-this.seeAngle);
+    let ax=this.x + this.seeDistance * Math.cos(this.angle-this.seeAngle);
+
+    let by=this.y + this.seeDistance * Math.sin(this.angle+this.seeAngle);
+    let bx=this.x + this.seeDistance * Math.cos(this.angle+this.seeAngle);
+
+    let tc=[this.color.levels[0],this.color.levels[1],this.color.levels[2],20]
+    game.buffer.fill(tc);
+
+    game.buffer.triangle(this.x,this.y,ax,ay,bx,by);}
   }
 
   step() {
@@ -118,10 +134,12 @@ class Bot extends Entity {
         speed: this.speed,
         angle: this.angle,
         health: this.health,
-        maxhealth:this.maxhealth
+        maxhealth:this.maxhealth,
+        owner:this.owner
       },
       { count: bc, max: this.maxBullets, speed:this.bulletSpeed },
-      { height: game.buffer.height, width: game.buffer.width }
+      { height: game.buffer.height, width: game.buffer.width },
+      this.see(game.bots)
     );
 
     console.log();
@@ -216,5 +234,33 @@ class Bot extends Entity {
 
 
 
+  }
+
+  see(things){
+
+    let ay=this.y + this.seeDistance * Math.sin(this.angle-this.seeAngle);
+    let ax=this.x + this.seeDistance * Math.cos(this.angle-this.seeAngle);
+
+    let by=this.y + this.seeDistance * Math.sin(this.angle+this.seeAngle);
+    let bx=this.x + this.seeDistance * Math.cos(this.angle+this.seeAngle);
+    let seen=[];
+    things.forEach((t)=>{
+
+      if(collidePointTriangle(t.x,t.y,this.x,this.y,ax,ay,bx,by) && t!=this){
+
+        seen.push({owner:t.owner,health:t.health/t.maxhealth,distance:dist(t.x,t.y,this.x,this.y),angleTo:this.angleTo(t.x,t.y),angle:(t.angle-this.angle)})
+      }
+
+    });
+    this.seen=seen;
+  return seen;
+  }
+  
+  angleTo(x1,y1){
+    let x2=100 * Math.cos(this.angle);
+    let y2= 100 * Math.sin(this.angle);
+    x1-=this.x;
+    y1-=this.y;
+    return Math.atan2(y2-y1,x2-x1)
   }
 }

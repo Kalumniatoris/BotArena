@@ -6,11 +6,12 @@ game.config = {
   drawUpdate: 60,
   logicUpdate: 30,
 };
-
-game.functionSt= "function(bot,bullets,arena){";
-
+game.config.showViews=true;
+game.functionSt= "function(bot,bullets,arena,seen){";
+game.logicPaused=true;
 game.bots = [];
 game.bullets=[];
+
 const ca = (p) => {
     p.setup = function () {
     var candiv = p.select("#arenaCanvas");
@@ -32,6 +33,7 @@ const ca = (p) => {
 
   p.draw = function () {
     p.image(game.buffer, 0, 0);
+    
   };
 
   p.mouseClicked = function () {
@@ -83,11 +85,15 @@ game.addBotWithCMAI=function(x, y, p) {
 
 
 game.startLogic = function(){
+  if(!game.logicPaused){return;}
   game.logic=setInterval(game.logicLoop, game.config.logicUpdate);
+  game.logicPaused=false;
 }
 
 game.pauseLogic=function(){
+  if(game.logicPaused){return;}
   clearInterval(game.logic);
+  game.logicPaused=true;
 }
 
 
