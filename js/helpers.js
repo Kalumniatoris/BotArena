@@ -6,7 +6,7 @@ var isLeft=function(Ax,Ay,Bx,By,X,Y){
   var checkCode=function(code){
     code=code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g,'').trim();
     code=code.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g,'').trim();
-    code=code.replace(/[^{}()[]+/g,'').trim();
+    code=code.replace(/[^{}()\][]+/g,'').trim();
     console.log(code)
 
     var cl=code.length; 
