@@ -65,7 +65,11 @@ game.logicLoop=function() {
 
 
 game.addBotWithCMAI=function(x, y, p) {
-  
+  if(!checkCode( game.cmCode.getValue() )){
+    console.log("failed simple brackets test");
+    return;}
+
+
   var newAi =
    game.functionSt +
     'let game="";\n' +
