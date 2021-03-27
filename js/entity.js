@@ -118,5 +118,9 @@ class Entity {
         array.splice(index, 1);
       }
     }
+
+    damage(amount){
+        this.health-=amount;
+    }
   }
   
