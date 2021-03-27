@@ -48,5 +48,5 @@ document.body.onload=()=>{
     game.config.showViews=!game.config.showViews;
 
   });
-
+  setInterval(()=>{$("#t")[0].textContent=game.bots.length>0?JSON.stringify(game.bots[0].seen):"--"},100)
 }

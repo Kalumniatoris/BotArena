@@ -65,12 +65,14 @@ game.logicLoop=function() {
 
 
 game.addBotWithCMAI=function(x, y, p) {
+  
   var newAi =
    game.functionSt +
     'let game="";\n' +
     game.cmCode.getValue() +
     "\n return -1;}";
 
+    
   console.log(newAi.toString());
 
   let fun = new Function("return " + newAi)();
