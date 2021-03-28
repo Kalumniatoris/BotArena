@@ -11,6 +11,8 @@ game.functionSt= "function(bot,bullets,arena,seen){";
 game.logicPaused=true;
 game.bots = [];
 game.bullets=[];
+game.debug={};
+game.debug.on=false;
 
 const ca = (p) => {
     p.setup = function () {

@@ -159,9 +159,9 @@ class Bot extends Entity {
         health: this.health,
         maxhealth: this.maxhealth,
         owner: this.owner,
-        rspeed: this.rspeed,
+        turnSpeed: this.rspeed,
       },
-      { count: bc, max: this.maxBullets, speed: this.bulletSpeed },
+      { count: bc, max: this.maxBullets, speed: this.bulletSpeed,damage:this.bulletDamage },
       { height: game.buffer.height, width: game.buffer.width },
       this.see(game.bots)
     );
