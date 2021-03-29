@@ -18,9 +18,9 @@ class Entity {
       this.color = color;
 
 
-      console.log("sx:",this.sx);
+      //console.log("sx:",this.sx);
       this.x = this.sx;
-      console.log("x:",this.x);
+      //console.log("x:",this.x);
 
       this.y = this.sy;
       this.px = this.x;

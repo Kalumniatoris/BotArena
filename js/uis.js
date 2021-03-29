@@ -1,5 +1,4 @@
 //game.cmCode
-
 document.body.onload = () => {
   game.cmCode = CodeMirror($("#codeArea")[0], {
     value:
@@ -47,4 +46,47 @@ document.body.onload = () => {
         game.bots.length > 0 ? JSON.stringify(game.bots[0].seen) : "--";
     }, 100);
   }
+
+  let qqq = {
+    bots: [
+      {
+        owner: "s212r",
+        health: 120,
+        maxhealth: 100,
+        experience: 21,
+        totalExperience: 120,
+      },
+      {
+        owner: "sample Owner",
+        health: 00,
+        maxhealth: 100,
+        experience: 0111,
+        totalExperience: 1100,
+      },
+      {
+        owner: "sadeawdawewner",
+        health: 100,
+        maxhealth: 100,
+        experience: 0,
+        totalExperience: 100,
+      },
+      {
+        owner: "deaer",
+        health: 100,
+        maxhealth: 100,
+        experience: 0,
+        totalExperience: 100,
+      },
+      {
+        owner: "saeawder",
+        health: 100,
+        maxhealth: 100,
+        experience: 0,
+        totalExperience: 100,
+      },
+    ],
+  };
+  ReactDOM.render(rc(BotInfoList, qqq), $("#bst")[0]);
+
+  // ReactDOM.render(rc(BotInfo,{bot:{owner:"sample Owner2",health:100,maxhealth:100,experience:0,totalExperience:100}}),$('#bst')[0]);
 };

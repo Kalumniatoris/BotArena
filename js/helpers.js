@@ -10,3 +10,7 @@ var isLeft=function(Ax,Ay,Bx,By,X,Y){
  var randomColor=function(){
       return [Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)];
   }
+
+  var dlog=function(x){
+      if(game.debug.on){console.log(x);}
+  }
