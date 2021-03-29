@@ -29,31 +29,52 @@
 
     </div>
     </div>
-<div class="text-light container">
-    <span id="codeSt">---</span>
-
-        <div id="codeArea"></div>
-   <!-- <textarea id="code" class="form-control" rows=10 >
-     
-    </textarea>-->
+    <div class="text-light container">
 
 
-    <span>}</span>
-    <div id="t"></div>
-    <div class="container">
-        <br>
-        <span>Click on 'arena' to add bot with current AI</span><br>
-<br>
-        <span>Current 'returns': FASTER, SLOWER, LEFT, RIGHT, FIRE, SPLIT, SRIGHT, SLEFT</span>
-        <br>
-        <span>bot:{x,y,speed,turnSpeedangle,health,maxhealth,owner}</span><span style="width:10px"> <span>Parameters of current bot</span>
-        <br>
-        <span>bullets:{count,max,speed,damage}</span> <span style="width:10px"> <span>information about current bot owner's bullets</span>
-        <br>
-        <span>arena:{witdh,height}</span>
-        <br>
-        <span>seen:{owner,health (%of max),distance,angleTo, angle (angles are relative to bot's angle)}</span> <span style="width:10px"> <span>Array of other bots seen by this bot</span>
-    </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="code-tab" data-bs-toggle="tab" data-bs-target="#code" type="button" role="tab" aria-controls="code" aria-selected="true">Code</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Stats</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="home-tab">
+            
+            <span id="codeSt">---</span>
+
+            <div id="codeArea"></div>
+    
+    
+        <span>}</span>
+        <div id="t"></div>
+        <div class="container">
+            <br>
+            <span>Click on 'arena' to add bot with current AI</span><br>
+    <br>
+            <span>Current 'returns': FASTER, SLOWER, LEFT, RIGHT, FIRE, SPLIT, SRIGHT, SLEFT</span>
+            <br>
+            <span>bot:{x,y,speed,turnSpeedangle,health,maxhealth,owner,exp,totalExp}</span><span style="width:10px"> <span>Parameters of current bot</span>
+            <br>
+            <span>bullets:{count,max,speed,damage}</span> <span style="width:10px"> <span>information about current bot owner's bullets</span>
+            <br>
+            <span>arena:{witdh,height}</span>
+            <br>
+            <span>seen:{owner,health (%of max),distance,angleTo, angle (angles are relative to bot's angle)}</span> <span style="width:10px"> <span>Array of other bots seen by this bot</span>
+        </div>
+
+        </div>
+        <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="profile-tab">...</div>
+      </div>
+
+
+ <!--codeV-->   
+
+
+
+<!--code^-->
 </div>
 
 
@@ -73,5 +94,6 @@
  <script src="./js/bullet.js"></script>
  <script src="./js/uis.js"></script>
  <script src="./js/helpers.js"></script>
+ <script src="./js/forais.js"></script>
 </body>
 </html>

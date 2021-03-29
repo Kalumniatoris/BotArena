@@ -12,9 +12,7 @@ class Bot extends Entity {
       }
     },
     owner,
-    maxhealth,
-    speed,
-    rspeed=Math.PI/180
+   
   ) {
     //(sx,sy,sa,owner = "",maxhealth = 1,speed = 0,rspeed = 0,size = 100,color = 255)
 
@@ -23,13 +21,13 @@ class Bot extends Entity {
       sy,
       Math.random() * 2 * Math.PI,
       owner,
-      maxhealth,
-      speed,
-      rspeed,
       size,
       color
     );
 
+    this.health=100;
+    this.maxhealth=100;
+    this.rspeed=Math.PI/180;
     this.ai = ai;
     this.maxSpeed = 10;
     this.speed = 0;
@@ -48,6 +46,9 @@ class Bot extends Entity {
 
     this.seeAngle = Math.PI / 5;
     this.seeDistance = 500;
+
+
+    //this.experience=0;
   }
 
   draw() {
@@ -70,9 +71,9 @@ class Bot extends Entity {
      game.buffer.push();
      game.buffer.stroke(255);
      let tc = [
-      this.color.levels[0],
-      this.color.levels[1],
-      this.color.levels[2],
+      this.color[0],
+      this.color[1],
+      this.color[2],
       20,
     ];
     game.buffer.fill(tc);
@@ -116,9 +117,9 @@ class Bot extends Entity {
       let bx = this.x + this.seeDistance * Math.cos(this.angle + this.seeAngle);
 
       let tc = [
-        this.color.levels[0],
-        this.color.levels[1],
-        this.color.levels[2],
+        this.color[0],
+        this.color[1],
+        this.color[2],
         20,
       ];
       game.buffer.fill(tc);
@@ -160,6 +161,8 @@ class Bot extends Entity {
         maxhealth: this.maxhealth,
         owner: this.owner,
         turnSpeed: this.rspeed,
+        exp:this.experience,
+        totalExp:this.totalExperience
       },
       { count: bc, max: this.maxBullets, speed: this.bulletSpeed,damage:this.bulletDamage },
       { height: game.buffer.height, width: game.buffer.width },
@@ -244,6 +247,7 @@ class Bot extends Entity {
       ) {
         let bullet = new Bullet(this);
         bullet.damage = this.bulletDamage;
+        bullet.shooter=this;
         game.bullets.push(bullet);
       }
       this.fireReady = false;

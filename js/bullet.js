@@ -1,17 +1,20 @@
 class Bullet extends Entity {
+  
   constructor(creator) {
     super(
       creator.x,
       creator.y,
       creator.angle,
       creator.owner,
-      1,
-      creator.bulletSpeed,
-      0,
       creator.bulletSize,
       creator.color
     );
-    this.damage=1;
+    this.shooter=creator;
+    this.damage=creator.bulletDamage;  
+    this.speed=creator.bulletSpeed;
+
+
+      console.log("B",this);
   }
 
   draw() {
@@ -57,8 +60,9 @@ class Bullet extends Entity {
         collideLineCircle(this.x, this.y, this.px, this.py, t.x, t.y, t.size) && t.owner!=this.owner
       ) {
             this.health-=1;
-            t.damage(this.damage);
-          
+
+            if(t.damage(this.damage)==0){this.shooter.experience+=t.totalExperience/2};
+            //if(t.health)
         //collided.push(t);
       }
     });

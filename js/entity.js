@@ -4,9 +4,6 @@ class Entity {
       sy,
       sa,
       owner = "",
-      maxhealth = 1,
-      speed = 0,
-      rspeed = 0,
       size = 100,
       color = 255
     ) {
@@ -16,20 +13,27 @@ class Entity {
       //this.ai=ai;
   
       this.owner = owner;
-      this.maxhealth = maxhealth;
-      this.health = maxhealth;
-      this.speed = speed;
-      this.rspeed = rspeed;
+     
       this.size = size;
       this.color = color;
-  
-      this.x = sx;
-      this.y = sy;
+
+
+      console.log("sx:",this.sx);
+      this.x = this.sx;
+      console.log("x:",this.x);
+
+      this.y = this.sy;
       this.px = this.x;
       this.py = this.y;
-      this.angle = sa;
+      this.angle = this.sa;
   
       this.bulletSize = 3;
+
+      this.experience=100;
+      this.totalExperience=100;
+
+      
+    console.log("created: ",this);
     }
 
     fixangle(){
@@ -121,6 +125,8 @@ class Entity {
 
     damage(amount){
         this.health-=amount;
+        if(this.health<=0){return 0;}
+        else {return this.health;}
     }
   }
   

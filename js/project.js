@@ -7,7 +7,7 @@ game.config = {
   logicUpdate: 30,
 };
 game.config.showViews=true;
-game.functionSt= "function(bot,bullets,arena,seen){";
+
 game.logicPaused=true;
 game.bots = [];
 game.bullets=[];
@@ -47,7 +47,8 @@ const ca = (p) => {
     ) {
       return;
     }
-    game.addBotWithCMAI(p.mouseX, p.mouseY, p);
+    addBotFromCode(p.mouseX,p.mouseY);
+   // game.addBotWithCMAI(p.mouseX, p.mouseY, p);
   };
 };
 
@@ -66,29 +67,29 @@ game.logicLoop=function() {
 }
 
 
-game.addBotWithCMAI=function(x, y, p) {
-  if(!checkCode( game.cmCode.getValue() )){
-    console.log("failed simple brackets test");
-    return;}
+// game.addBotWithCMAI=function(x, y, p) {
+//   if(!checkCode( game.cmCode.getValue() )){
+//     console.log("failed simple brackets test");
+//     return;}
 
 
-  var newAi =
-   game.functionSt +
-    'let game="";\n' +
-    game.cmCode.getValue() +
-    "\n return -1;}";
+//   var newAi =
+//    game.functionSt +
+//     'let game="";\n' +
+//     game.cmCode.getValue() +
+//     "\n return -1;}";
 
     
-  console.log(newAi.toString());
+//   console.log(newAi.toString());
 
-  let fun = new Function("return " + newAi)();
+//   let fun = new Function("return " + newAi)();
 
-  console.log(fun);
+//   console.log(fun);
 
-  game.bots.push(
-    new Bot(x, y, 20, p.color(p.random(256), p.random(256), p.random(256)), fun,"T"+Math.floor(Math.random()*100000000),100)
-  );
-}
+//   game.bots.push(
+//     new Bot(x, y, 20,randomColor(), fun,"T"+Math.floor(Math.random()*100000000))
+//   );
+// }
 
 
 
