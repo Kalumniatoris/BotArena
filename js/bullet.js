@@ -61,7 +61,7 @@ class Bullet extends Entity {
       ) {
             this.health-=1;
 
-            if(t.damage(this.damage)==0){this.shooter.addExp(t.totalExperience/2)};
+            if(t.damage(this.damage)==0){this.shooter.addExp(Math.ceil(t.totalExperience/2)+1)};
             //if(t.health)
         //collided.push(t);
       }
