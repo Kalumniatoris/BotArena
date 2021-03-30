@@ -358,4 +358,6 @@ class Bot extends Entity {
     return angleTo;
 
   }
+
+  addExp(e){this.experience+=e;this.totalExperience+=e;}
 }

@@ -35,6 +35,14 @@ class BotInfo extends React.Component {
   }
 }
 
+
+var updateInfo = function () {
+    ReactDOM.render(rc(BotInfoList,{bots:game.bots}), $("#bst")[0]);
+  };
+
+  game.config.infoUpdate=200;
+
+game.infoLoop=setInterval(updateInfo,game.config.infoUpdate);
 /*
 <div>
 <

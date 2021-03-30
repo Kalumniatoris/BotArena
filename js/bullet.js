@@ -14,7 +14,7 @@ class Bullet extends Entity {
     this.speed=creator.bulletSpeed;
 
 
-      console.log("B",this);
+     dlog("B ,"+this);
   }
 
   draw() {
@@ -61,7 +61,7 @@ class Bullet extends Entity {
       ) {
             this.health-=1;
 
-            if(t.damage(this.damage)==0){this.shooter.experience+=t.totalExperience/2};
+            if(t.damage(this.damage)==0){this.shooter.addExp(t.totalExperience/2)};
             //if(t.health)
         //collided.push(t);
       }

@@ -115,3 +115,5 @@ game.startDraw = function(){
 game.pauseDraw=function(){
   clearInterval(game.drawI);
 }
+
+
