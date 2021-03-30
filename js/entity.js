@@ -55,10 +55,6 @@ class Entity {
       console.log(this);
     }
   
-    test() {
-      console.log("test");
-    }
-  
     draw() {}
 
     step() {this.fixangle();

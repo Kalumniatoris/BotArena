@@ -131,7 +131,7 @@ class Bot extends Entity {
   step() {
     super.step();
     //  console.log(this.health);
-    if (this.health <= 0) {
+    if (this.health <= 0 ||this.maxhealth<=0) {
       //    console.log("killing");
       this.killMe(game.bots);
     }

@@ -43,7 +43,8 @@ let cc="rgb("+c[0]+","+c[1]+","+c[2]+")";
 
 
 var updateInfo = function () {
-    ReactDOM.render(rc(BotInfoList,{bots:game.bots}), $("#bst")[0]);
+    if(true){
+    ReactDOM.render(rc(BotInfoList,{bots:game.bots}), $("#bst")[0]);}
   };
 
   game.config.infoUpdate=200;

@@ -32,7 +32,7 @@ document.body.onload = () => {
 
   let btnKill = $("#btnKill")[0];
   btnKill.addEventListener("click", function () {
-    game.bots = [];
+    game.bots.splice(0,game.bots.length);
   });
 
   let btnViews = $("#btnViews")[0];
