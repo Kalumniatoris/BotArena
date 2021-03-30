@@ -11,23 +11,15 @@ class Bot extends Entity {
         return "RIGHT";
       }
     },
-    owner,
-   
+    owner
   ) {
     //(sx,sy,sa,owner = "",maxhealth = 1,speed = 0,rspeed = 0,size = 100,color = 255)
 
-    super(
-      sx,
-      sy,
-      Math.random() * 2 * Math.PI,
-      owner,
-      size,
-      color
-    );
+    super(sx, sy, Math.random() * 2 * Math.PI, owner, size, color);
 
-    this.health=100;
-    this.maxhealth=100;
-    this.rspeed=Math.PI/180;
+    this.health = 100;
+    this.maxhealth = 100;
+    this.rspeed = Math.PI / 180;
     this.ai = ai;
     this.maxSpeed = 10;
     this.speed = 0;
@@ -46,8 +38,7 @@ class Bot extends Entity {
 
     this.seeAngle = Math.PI / 5;
     this.seeDistance = 500;
-
-
+    this.healRatio=1;
     //this.experience=0;
   }
 
@@ -68,26 +59,28 @@ class Bot extends Entity {
     // game.buffer.rect(-5,-5,10,10);
 
     if (game.config.showViews) {
-     game.buffer.push();
-     game.buffer.stroke(255);
-     let tc = [
-      this.color[0],
-      this.color[1],
-      this.color[2],
-      20,
-    ];
-    game.buffer.fill(tc);
-      game.buffer.line(0,0,1000,0)
+      game.buffer.push();
+      game.buffer.stroke(255);
+      let tc = [this.color[0], this.color[1], this.color[2], 20];
+      game.buffer.fill(tc);
+      game.buffer.line(0, 0, 1000, 0);
       //game.buffer.fill(game.buffer.color(200,0,200,100));
 
-     // game.buffer.text("AA",100,100);
-      game.buffer.arc(0,0,this.seeDistance*2,this.seeDistance*2,-this.seeAngle,this.seeAngle,"pie")
+      // game.buffer.text("AA",100,100);
+      game.buffer.arc(
+        0,
+        0,
+        this.seeDistance * 2,
+        this.seeDistance * 2,
+        -this.seeAngle,
+        this.seeAngle,
+        "pie"
+      );
 
       game.buffer.pop();
-
     }
 
-      game.buffer.rotate(-this.angle);
+    game.buffer.rotate(-this.angle);
 
     game.buffer.push();
     game.buffer.stroke(255);
@@ -116,12 +109,7 @@ class Bot extends Entity {
       let by = this.y + this.seeDistance * Math.sin(this.angle + this.seeAngle);
       let bx = this.x + this.seeDistance * Math.cos(this.angle + this.seeAngle);
 
-      let tc = [
-        this.color[0],
-        this.color[1],
-        this.color[2],
-        20,
-      ];
+      let tc = [this.color[0], this.color[1], this.color[2], 20];
       game.buffer.fill(tc);
 
       game.buffer.triangle(this.x, this.y, ax, ay, bx, by);
@@ -131,7 +119,7 @@ class Bot extends Entity {
   step() {
     super.step();
     //  console.log(this.health);
-    if (this.health <= 0 ||this.maxhealth<=0) {
+    if (this.health <= 0 || this.maxhealth <= 0) {
       //    console.log("killing");
       this.killMe(game.bots);
     }
@@ -161,34 +149,42 @@ class Bot extends Entity {
         maxhealth: this.maxhealth,
         owner: this.owner,
         turnSpeed: this.rspeed,
-        exp:this.experience,
-        totalExp:this.totalExperience
+        exp: this.experience,
+        totalExp: this.totalExperience,
       },
-      { count: bc, max: this.maxBullets, speed: this.bulletSpeed,damage:this.bulletDamage },
+      {
+        count: bc,
+        max: this.maxBullets,
+        speed: this.bulletSpeed,
+        damage: this.bulletDamage,
+      },
       { height: game.buffer.height, width: game.buffer.width },
       this.see(game.bots)
     );
 
     console.log();
     let action;
-    let param=null;
-    if(typeof(s)=="string"){
-      action=s;
-    }
-    else{
-      action=s[0];
-      param=s[1];
+    let param = null;
+    if (typeof s == "string") {
+      action = s;
+    } else {
+      action = s[0];
+      param = s[1];
     }
     switch (action) {
       case "LEFT":
-        if(param){               
-        this.turnLeft(param);}
-        else{this.turnLeft();}
+        if (param) {
+          this.turnLeft(param);
+        } else {
+          this.turnLeft();
+        }
         break;
       case "RIGHT":
-        if(param){   
-        this.turnRight(param);}
-        else{this.turnRight();}
+        if (param) {
+          this.turnRight(param);
+        } else {
+          this.turnRight();
+        }
         break;
       case "FASTER":
         this.faster();
@@ -204,11 +200,8 @@ class Bot extends Entity {
         this.split();
 
         break;
-      case "SRIGHT":
-        this.turnRight(Math.PI/360);
-        break;
-      case "SLEFT":
-        this.turnLeft(Math.PI/360);
+      case "HEAL":
+        this.healByExp(param);
         break;
       case "HARM_ME":
         this.health -= this.maxhealth / 10;
@@ -218,15 +211,14 @@ class Bot extends Entity {
     }
   }
 
-  turnRight(va=this.rspeed) {
-    va=Math.abs(va)>this.rspeed?this.rspeed:va;
-  //  va=Math.abs(va)>this.rspeed?this.rspeed:va;
+  turnRight(va = this.rspeed) {
+    va = Math.abs(va) > this.rspeed ? this.rspeed : va;
+    //  va=Math.abs(va)>this.rspeed?this.rspeed:va;
     this.angle += va;
   }
-  turnLeft(va=this.rspeed) {
-    
-    va=Math.abs(va)>this.rspeed?this.rspeed:va;
-  //    va=Math.abs(va)>this.rspeed?this.rspeed:va;
+  turnLeft(va = this.rspeed) {
+    va = Math.abs(va) > this.rspeed ? this.rspeed : va;
+    //    va=Math.abs(va)>this.rspeed?this.rspeed:va;
     this.angle -= va;
   }
 
@@ -247,7 +239,7 @@ class Bot extends Entity {
       ) {
         let bullet = new Bullet(this);
         bullet.damage = this.bulletDamage;
-        bullet.shooter=this;
+        bullet.shooter = this;
         game.bullets.push(bullet);
       }
       this.fireReady = false;
@@ -315,49 +307,76 @@ class Bot extends Entity {
     //   }
     // });
 
-    for(let q=0;q<game.bots.length;q+=1){
-      let dto=game.bots[q].distanceTo(this.x,this.y)
-      if(dto<=this.seeDistance && game.bots[q]!=this){
-        let ptarget=game.bots[q];
+    for (let q = 0; q < game.bots.length; q += 1) {
+      let dto = game.bots[q].distanceTo(this.x, this.y);
+      if (dto <= this.seeDistance && game.bots[q] != this) {
+        let ptarget = game.bots[q];
 
-        let ato=this.angleTo(ptarget.x,ptarget.y);
-        if(Math.abs(ato)<=this.seeAngle){
-        seen.push({angleTo:ato,owner:ptarget.owner,health:ptarget.health,distance:dto});
-      }
+        let ato = this.angleTo(ptarget.x, ptarget.y);
+        if (Math.abs(ato) <= this.seeAngle) {
+          seen.push({
+            angleTo: ato,
+            owner: ptarget.owner,
+            health: ptarget.health,
+            distance: dto,
+          });
+        }
       }
     }
     this.seen = seen;
     return seen;
   }
 
-  distanceTo(x,y){
-    return dist(this.x,this.y,x,y)
+  distanceTo(x, y) {
+    return dist(this.x, this.y, x, y);
   }
-  angleTo(px, py) {/*
+  angleTo(px, py) {
+    /*
     let x2 = this.x + 1 * Math.cos(this.angle);
     let y2 = this.y + 1 * Math.sin(this.angle);
     // x1-=this.x;
     //  y1-=this.y;
     //return Math.atan2(y1 - y2, x1 - x2);*/
 
-    
-    var sx=10* Math.cos(this.angle);
-    var sy=10* Math.sin(this.angle);
+    var sx = 10 * Math.cos(this.angle);
+    var sy = 10 * Math.sin(this.angle);
 
-    var cx=px-this.x;
-    var cy=py-this.y;
+    var cx = px - this.x;
+    var cy = py - this.y;
 
-    var tma= (cx * sx + cy * sy) / (  Math.sqrt(cx*cx + cy*cy) *  Math.sqrt(sx*sx + sy*sy) );
+    var tma =
+      (cx * sx + cy * sy) /
+      (Math.sqrt(cx * cx + cy * cy) * Math.sqrt(sx * sx + sy * sy));
 
-    var angleTo=Math.acos(tma);
+    var angleTo = Math.acos(tma);
 
-    if(!isLeft(this.x,this.y,this.x+100*Math.cos(this.angle),this.y+100*Math.sin(this.angle),px,py)){
-      angleTo=-angleTo;
-     // console.log(angleTo);
+    if (
+      !isLeft(
+        this.x,
+        this.y,
+        this.x + 100 * Math.cos(this.angle),
+        this.y + 100 * Math.sin(this.angle),
+        px,
+        py
+      )
+    ) {
+      angleTo = -angleTo;
+      // console.log(angleTo);
     }
     return angleTo;
-
   }
 
-  addExp(e){this.experience+=e;this.totalExperience+=e;}
+  addExp(e) {
+    this.experience += e;
+    this.totalExperience += e;
+  }
+
+
+  healByExp(hp = this.experience) {
+    // without parameters it uses all experience
+    if (this.experience >= hp) {
+      this.experience -= Math.abs(hp);
+      this.health = Math.min(this.maxhealth, this.health + hp*this.healRatio);
+    }
+  }
 }
