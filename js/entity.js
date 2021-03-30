@@ -33,7 +33,7 @@ class Entity {
       this.totalExperience=100;
 
       
-    console.log("created: ",this);
+    dlog("created: ",this);
     }
 
     fixangle(){

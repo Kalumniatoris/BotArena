@@ -6,6 +6,8 @@ class BotInfoList extends React.Component {
   }
 
   render() {
+
+    this.state.bots.sort((a,b)=>{return b.totalExperience-a.totalExperience});
     return rc(
         React.Fragment,
         {},
@@ -21,12 +23,16 @@ class BotInfoList extends React.Component {
 class BotInfo extends React.Component {
   render() {
     let bot = this.props.bot;
-    console.log("botttt",bot);
+    dlog("botttt",bot);
+    let c=bot.color;
+let cc="rgb("+c[0]+","+c[1]+","+c[2]+")";
+//console.log(cc);
+//cc="#58ab99";
     return rc(
       
       "tr",
       { className: "botInfo" },
-      rc("th", { scope: "row" },">>"+bot.owner),
+      rc("th", { scope: "row" ,className: "BotNOwner" ,style:{color:cc}},">>"+bot.owner),
       rc("td", {}, bot.health),
       rc("td", {}, bot.maxhealth),
       rc("td", {}, bot.experience),
