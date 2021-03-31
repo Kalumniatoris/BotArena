@@ -1,16 +1,7 @@
 //game.cmCode
 document.body.onload = () => {
   game.cmCode = CodeMirror($("#codeArea")[0], {
-    value:
-      'if(bot.speed<1){return "FASTER"}\n' +
-      " if(seen.length>0){\n" +
-      " let t=seen[0];\n" +
-      " let at=t.angleTo;\n" +
-      ' if(Math.abs(at)<0.01){return "FIRE"}\n' +
-      ' if(at>0){return ["LEFT",at]} \n' +
-      ' if(at<0){return ["LEFT",-at]} \n' +
-      "}\n" +
-      ' return "LEFT"',
+    value:codes[0],
     mode: "javascript",
     theme: "abcdef",
   });
@@ -49,48 +40,5 @@ document.body.onload = () => {
 
   // ReactDOM.render(rc(BotInfo,{bot:{owner:"sample Owner2",health:100,maxhealth:100,experience:0,totalExperience:100}}),$('#bst')[0]);
 };
-
-
-
-//let test={}
-
-let qqq = 
-  [
-    {
-      owner: "s212r",
-      health: 120,
-      maxhealth: 100,
-      experience: 21,
-      totalExperience: 120,
-    },
-    {
-      owner: "sample Owner",
-      health: 00,
-      maxhealth: 100,
-      experience: 0111,
-      totalExperience: 1100,
-    },
-    {
-      owner: "sadeawdawewner",
-      health: 100,
-      maxhealth: 100,
-      experience: 0,
-      totalExperience: 100,
-    },
-    {
-      owner: "deaer",
-      health: 100,
-      maxhealth: 100,
-      experience: 0,
-      totalExperience: 100,
-    },
-    {
-      owner: "saeawder",
-      health: 100,
-      maxhealth: 100,
-      experience: 0,
-      totalExperience: 100,
-    }
-  ];
 
 

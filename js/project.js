@@ -67,30 +67,6 @@ game.logicLoop=function() {
 }
 
 
-// game.addBotWithCMAI=function(x, y, p) {
-//   if(!checkCode( game.cmCode.getValue() )){
-//     console.log("failed simple brackets test");
-//     return;}
-
-
-//   var newAi =
-//    game.functionSt +
-//     'let game="";\n' +
-//     game.cmCode.getValue() +
-//     "\n return -1;}";
-
-    
-//   console.log(newAi.toString());
-
-//   let fun = new Function("return " + newAi)();
-
-//   console.log(fun);
-
-//   game.bots.push(
-//     new Bot(x, y, 20,randomColor(), fun,"T"+Math.floor(Math.random()*100000000))
-//   );
-// }
-
 
 
 game.startLogic = function(){

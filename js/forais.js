@@ -1,4 +1,4 @@
-game.functionSt = "function(bot,bullets,arena,seen){";
+game.functionSt = "function(bot,bullets,arena,seen,costs){";
 
 var checkCode = function (code) {
   code = code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "").trim();
@@ -64,7 +64,7 @@ var addBotFromCode = function (x, y, owner) {
     game.functionSt +
     'let game="";\n' +
     game.cmCode.getValue() +
-    "\n return -1;}";
+    "\n return \"WAIT\" ;}";
 
   let fun = new Function("return " + newAi)();
 

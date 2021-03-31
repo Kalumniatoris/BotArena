@@ -1,3 +1,15 @@
+game.upgrades = {};
+game.upgrades.ratios = {
+  health: 1,
+  healing: 2,
+  firerate: 2.5,
+  speed: 2,
+  bulletspeed: 1,
+  sight: 0.2,
+  damage: 2,
+  bulletcount: 2
+};
+
 class Bot extends Entity {
   constructor(
     sx,
@@ -38,7 +50,11 @@ class Bot extends Entity {
 
     this.seeAngle = Math.PI / 5;
     this.seeDistance = 500;
-    this.healRatio=1;
+    this.healRatio = 1;
+
+    this.baseUpgradeCost = 10;
+
+    this.upgradeCount = 0;
     //this.experience=0;
   }
 
@@ -159,7 +175,8 @@ class Bot extends Entity {
         damage: this.bulletDamage,
       },
       { height: game.buffer.height, width: game.buffer.width },
-      this.see(game.bots)
+      this.see(game.bots),
+      this.upgradesCosts()
     );
 
     console.log();
@@ -171,6 +188,8 @@ class Bot extends Entity {
       action = s[0];
       param = s[1];
     }
+
+    action=action.toUpperCase();
     switch (action) {
       case "LEFT":
         if (param) {
@@ -199,6 +218,10 @@ class Bot extends Entity {
       case "SPLIT":
         this.split();
 
+        break;
+
+      case "UPGRADE":
+        this.upgrade(param);
         break;
       case "HEAL":
         this.healByExp(param);
@@ -371,12 +394,139 @@ class Bot extends Entity {
     this.totalExperience += e;
   }
 
-
   healByExp(hp = this.experience) {
     // without parameters it uses all experience
     if (this.experience >= hp) {
       this.experience -= Math.abs(hp);
-      this.health = Math.min(this.maxhealth, this.health + hp*this.healRatio);
+      this.health = Math.min(this.maxhealth, this.health + hp * this.healRatio);
     }
+  }
+  getExperience() {
+    return this.experience;
+  }
+  addExperience(exp) {
+    this.experience += exp;
+  }
+
+  getUpgradePrice(ucm) {
+    return Math.ceil(ucm * this.baseUpgradeCost * (this.upgradeCount + 1));
+  }
+
+  upgrade(what) {
+    let me = this;
+    let price = 1e100;
+
+    function canAfford(ucm) {
+      return me.getExperience() >= me.getUpgradePrice(ucm);
+    }
+    function payForUpgrade(ucm) {
+      me.addExperience(-me.getUpgradePrice(ucm));
+      me.upgradeCount += 1;
+    }
+    what = what.toLowerCase();
+    let p = 1;
+    switch (what) {
+      case "hp":
+      case "health":
+        p = game.upgrades.ratios.health;
+        if (canAfford(p)) {
+          payForUpgrade(p);
+          if (canAfford(p)) {
+            payForUpgrade(p);
+            let rh = me.health / me.maxhealth;
+            me.maxhealth *= 1.5;
+            me.health = rh * me.maxhealth;
+          }
+        }
+        break;
+      case "healing":
+        p = game.upgrades.healing;
+        if (canAfford(p)) {
+          payForUpgrade(p);
+          if (canAfford(p)) {
+            payForUpgrade(p);
+            me.healRatio = me.healRatio * 2 + 1;
+          }
+        }
+        break;
+      case "damage":
+        p = game.upgrades.ratios.damage;
+        if (canAfford(p)) {
+          payForUpgrade(p);
+          if (canAfford(p)) {
+            payForUpgrade(p);
+            me.damage *= 1.5;
+          }
+        }
+        break;
+      case "bulletcount":
+        p = game.upgrades.ratios.bulletCount;
+        if (canAfford(p)) {
+          payForUpgrade(p);
+          if (canAfford(p)) {
+            payForUpgrade(p);
+
+            me.maxBullets *= 1.5;
+          }
+        }
+        break;
+      case "speed":
+        p = game.upgrades.ratios.speed;
+        if (canAfford(p)) {
+          payForUpgrade(p);
+          if (canAfford(p)) {
+            payForUpgrade(p);
+
+            me.maxSpeed *= 1.2;
+            me.turnSpeed *= 1.5;
+          }
+        }
+        break;
+      case "sight":
+        p = game.upgrades.ratios.sight;
+        if (canAfford(p)) {
+          payForUpgrade(p);
+          if (canAfford(p)) {
+            payForUpgrade(p);
+
+            me.seeAngle *= 1.2;
+            me.seeDistance *= 1.2;
+          }
+        }
+        break;
+      case "firerate":
+        p = game.upgrades.ratios.firerate;
+        if (canAfford(p)) {
+          payForUpgrade(p);
+          if (canAfford(p)) {
+            payForUpgrade(p);
+            me.maxfireCooldown *= 0.8;
+          }
+        }
+        break;
+    }
+    //maxhp
+    //healing
+
+    //bulletSpeed
+    //bulletCount
+    //bulletDamage
+
+    //this.experience-=upgradeCostMultiplier*this.upgradeCost;
+  }
+
+  upgradesCosts(){
+    return {
+      health: this.getUpgradePrice(game.upgrades.ratios.health),
+      healing: this.getUpgradePrice(game.upgrades.ratios.healing),
+      firerate: this.getUpgradePrice(game.upgrades.ratios.firerate),
+      speed: this.getUpgradePrice(game.upgrades.ratios.speed),
+      bulletspeed: this.getUpgradePrice(game.upgrades.ratios.bulletspeed),
+      sight: this.getUpgradePrice(game.upgrades.ratios.sight),
+      damage: this.getUpgradePrice(game.upgrades.ratios.damage),
+      bulletcount: this.getUpgradePrice(game.upgrades.ratios.bulletcount)
+
+    }
+
   }
 }
