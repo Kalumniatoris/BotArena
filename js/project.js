@@ -11,6 +11,7 @@ game.config.showViews=true;
 game.logicPaused=true;
 game.bots = [];
 game.bullets=[];
+game.kohs=[];
 game.debug={};
 game.debug.on=false;
 
@@ -56,14 +57,18 @@ game.arenaCanvas = new p5(ca, "arenaCanvas");
 
 game.drawLoop=function() {
   game.buffer.background(0);
+  game.kohs.forEach((x) => x.draw());
   game.bots.forEach((x) => x.draw());
   game.bullets.forEach((x) => x.draw());
 }
 
 
 game.logicLoop=function() {
+  
   game.bots.forEach((x) => x.step());
   game.bullets.forEach((x) => x.step());
+
+  game.kohs.forEach((x) => x.step());
 }
 
 

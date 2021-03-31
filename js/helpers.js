@@ -7,8 +7,8 @@ var isLeft=function(Ax,Ay,Bx,By,X,Y){
 
 
 
- var randomColor=function(){
-      return [Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256)];
+ var randomColor=function(a=256){
+      return [Math.floor(Math.random()*256),Math.floor(Math.random()*256),Math.floor(Math.random()*256),a];
   }
 
   var dlog=function(x){

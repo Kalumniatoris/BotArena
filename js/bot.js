@@ -350,9 +350,7 @@ class Bot extends Entity {
     return seen;
   }
 
-  distanceTo(x, y) {
-    return dist(this.x, this.y, x, y);
-  }
+
   angleTo(px, py) {
     /*
     let x2 = this.x + 1 * Math.cos(this.angle);

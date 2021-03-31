@@ -124,5 +124,9 @@ class Entity {
         if(this.health<=0){return 0;}
         else {return this.health;}
     }
+
+    distanceTo(x, y) {
+      return dist(this.x, this.y, x, y);
+    }
   }
   
