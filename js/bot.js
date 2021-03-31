@@ -167,6 +167,8 @@ class Bot extends Entity {
         turnSpeed: this.rspeed,
         exp: this.experience,
         totalExp: this.totalExperience,
+        experience:this.experience,
+        totalExperience: this.totalExperience
       },
       {
         count: bc,
@@ -423,6 +425,7 @@ class Bot extends Entity {
     }
     what = what.toLowerCase();
     let p = 1;
+    var upgraded=false;
     switch (what) {
       case "hp":
       case "health":
@@ -434,6 +437,7 @@ class Bot extends Entity {
             let rh = me.health / me.maxhealth;
             me.maxhealth *= 1.5;
             me.health = rh * me.maxhealth;
+            upgraded=true;
           }
         }
         break;
@@ -444,6 +448,7 @@ class Bot extends Entity {
           if (canAfford(p)) {
             payForUpgrade(p);
             me.healRatio = me.healRatio * 2 + 1;
+            upgraded=true;
           }
         }
         break;
@@ -454,10 +459,12 @@ class Bot extends Entity {
           if (canAfford(p)) {
             payForUpgrade(p);
             me.damage *= 1.5;
+            upgraded=true;
           }
         }
         break;
       case "bulletcount":
+        case "maxbullets":
         p = game.upgrades.ratios.bulletCount;
         if (canAfford(p)) {
           payForUpgrade(p);
@@ -465,6 +472,7 @@ class Bot extends Entity {
             payForUpgrade(p);
 
             me.maxBullets *= 1.5;
+            upgraded=true;
           }
         }
         break;
@@ -477,6 +485,7 @@ class Bot extends Entity {
 
             me.maxSpeed *= 1.2;
             me.turnSpeed *= 1.5;
+            upgraded=true;
           }
         }
         break;
@@ -489,6 +498,7 @@ class Bot extends Entity {
 
             me.seeAngle *= 1.2;
             me.seeDistance *= 1.2;
+            upgraded=true;
           }
         }
         break;
@@ -499,9 +509,21 @@ class Bot extends Entity {
           if (canAfford(p)) {
             payForUpgrade(p);
             me.maxfireCooldown *= 0.8;
+            upgraded=true;
           }
         }
         break;
+        case "bulletspeed":
+          p = game.upgrades.ratios.bulletspeed;
+          if (canAfford(p)) {
+            payForUpgrade(p);
+            if (canAfford(p)) {
+              payForUpgrade(p);
+              me.maxBullets = Math.Ceil(me.maxBullets*1.1+5);
+              upgraded=true;
+            }
+          }
+          break;
     }
     //maxhp
     //healing
@@ -509,7 +531,9 @@ class Bot extends Entity {
     //bulletSpeed
     //bulletCount
     //bulletDamage
-
+    if(upgraded){this.upgradeCount+=1;
+    this.size*=1.1;
+    }
     //this.experience-=upgradeCostMultiplier*this.upgradeCost;
   }
 
