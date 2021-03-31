@@ -6,7 +6,7 @@ game.config = {
   drawUpdate: 60,
   logicUpdate: 30,
 };
-game.config.showViews=true;
+game.config.showViews=false;
 
 game.logicPaused=true;
 game.bots = [];
