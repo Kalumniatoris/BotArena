@@ -1,5 +1,8 @@
 //game.cmCode
 document.body.onload = () => {
+
+  game.variabler=new Variabler("GAME");
+
   game.cmCode = CodeMirror($("#codeArea")[0], {
     value:codes[0],
     mode: "javascript",

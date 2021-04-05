@@ -1,4 +1,4 @@
-game.functionSt = "function(bot,bullets,arena,seen,costs){";
+game.functionSt = "function(bot,bullets,arena,seen,costs,v){";
 
 var checkCode = function (code) {
   code = code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "").trim();
@@ -60,9 +60,10 @@ var addBotFromCode = function (x, y, owner) {
     return;
   }
 
+ 
   var newAi =
-    game.functionSt +
-    'let game="";\n' +
+    game.functionSt +"/*"+ game+"*/"+
+    'v.setVar(bot.owner,new Variabler(bot.owner));v=v.getVar(bot.owner);let game="";  \n' +
     game.cmCode.getValue() +
     "\n return \"WAIT\" ;}";
 

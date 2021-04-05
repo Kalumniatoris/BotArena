@@ -15,6 +15,7 @@ game.kohs=[];
 game.debug={};
 game.debug.on=false;
 
+
 const ca = (p) => {
     p.setup = function () {
     var candiv = p.select("#arenaCanvas");

@@ -178,7 +178,8 @@ class Bot extends Entity {
       },
       { height: game.buffer.height, width: game.buffer.width },
       this.see(game.bots),
-      this.upgradesCosts()
+      this.upgradesCosts(),
+      game.variabler
     );
 
     console.log();
@@ -297,7 +298,8 @@ class Bot extends Entity {
       this.speed,
       this.rspeed
     );
-
+      newBot.health=this.health;
+      
     newBot.size *= 0.9;
     this.size *= 0.9;
     newBot.bulletSize *= 0.7;
