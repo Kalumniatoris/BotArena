@@ -6,6 +6,7 @@ class Variabler {
     }
 
    getVar(name){
+       if(typeof(this.data[name])=="undefined"){return;}
        return this.data[name];
    }
    setVar(name,vari){
