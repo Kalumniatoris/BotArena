@@ -46,7 +46,7 @@ var checkCode = function (code) {
   return true;
 };
 
-var addBot=function(x,y,ai,owner="A"+Math.floor(Math.random()*1000000)){
+var addBot=function(x,y,ai,owner="A"+Date.now()+Math.floor(Math.random()*1000000)){
     let newBot=new Bot(x,y,20,randomColor(),ai,owner);
     
         game.bots.push(newBot);
