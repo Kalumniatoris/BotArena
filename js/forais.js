@@ -1,5 +1,5 @@
 game.functionSt = "function(bot,bullets,arena,seen,costs,v){";
-
+var currentCode=0;
 var checkCode = function (code) {
   code = code.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, "").trim();
   code = code.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, "").trim();
@@ -46,13 +46,13 @@ var checkCode = function (code) {
   return true;
 };
 
-var addBot=function(x,y,ai,owner="A"+Date.now()+Math.floor(Math.random()*1000000)){
-    let newBot=new Bot(x,y,20,randomColor(),ai,owner);
-    
-        game.bots.push(newBot);
-        
-    
-      }
+var addBot = function (x, y, ai, owner = "A" + Date.now() + Math.floor(Math.random() * 1000000)) {
+  let newBot = new Bot(x, y, 20, randomColor(), ai, owner);
+
+  game.bots.push(newBot);
+
+
+}
 
 var addBotFromCode = function (x, y, owner) {
   if (!checkCode(game.cmCode.getValue())) {
@@ -60,16 +60,16 @@ var addBotFromCode = function (x, y, owner) {
     return;
   }
 
- 
+
   var newAi =
-    game.functionSt +"/*"+ game+"*/"+
+    game.functionSt + "/*" + game + "*/" +
     'v.setVar(bot.owner,new Variabler(bot.owner));v=v.getVar(bot.owner);let game="";  \n' +
     game.cmCode.getValue() +
     "\n return \"WAIT\" ;}";
 
   let fun = new Function("return " + newAi)();
 
-  addBot(x,y,fun,owner);
+  addBot(x, y, fun, owner);
 };
 
 

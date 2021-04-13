@@ -2,7 +2,9 @@
 document.body.onload = () => {
 
   game.variabler=new Variabler("GAME");
-
+  if(window.localStorage.getItem("codes")!=null){
+    codes=JSON.parse(window.localStorage.getItem("codes")).slice();
+  }
   game.cmCode = CodeMirror($("#codeArea")[0], {
     value:codes[0],
     mode: "javascript",
@@ -40,6 +42,10 @@ document.body.onload = () => {
         game.bots.length > 0 ? JSON.stringify(game.bots[0].seen) : "--";
     }, 100);
   }
+
+
+
+  
 
   // ReactDOM.render(rc(BotInfo,{bot:{owner:"sample Owner2",health:100,maxhealth:100,experience:0,totalExperience:100}}),$('#bst')[0]);
 };
