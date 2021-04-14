@@ -16,9 +16,9 @@ var dlog = function (x) {
 }
 
 var autosaveDelay = 30;
-var autoSaveCodes = setInterval(()=>{saveValidCode();saveAnyCode();}, autosaveDelay * 1000);
+var autoSaveCodes = setInterval(() => { saveValidCode(); saveAnyCode(); }, autosaveDelay * 1000);
 
- function saveValidCode() {
+function saveValidCode() {
     console.log("saving valid codes");
     if (checkCode(game.cmCode.getValue())) {
         validCodes[currentCode] = game.cmCode.getValue();
@@ -33,30 +33,31 @@ var autoSaveCodes = setInterval(()=>{saveValidCode();saveAnyCode();}, autosaveDe
 
 function saveAnyCode() {
     console.log("saving codes");
-   
-        codes[currentCode] = game.cmCode.getValue();
 
-        window.localStorage.setItem("codes", JSON.stringify(codes));
-        console.log("saving completed");
- 
+    codes[currentCode] = game.cmCode.getValue();
+
+    window.localStorage.setItem("codes", JSON.stringify(codes));
+    console.log("saving completed");
+
 };
 
-function saveBots(){
-    window.localStorage.setItem("bots",JSON.stringify(game.bots));
+function saveBots() {
+    window.localStorage.setItem("bots", JSON.stringify(game.bots));
 }
 
-function loadBots(){
-    var tempbots=JSON.parse(window.localStorage.getItem("bots").slice());
-    var tbl=[];
-    tempbots.forEach((bot,id)=>{
+function loadBots() {
+    var tempbots = JSON.parse(window.localStorage.getItem("bots").slice());
+    var tbl = [];
+    tempbots.forEach((bot, id) => {
         tbl.push(new Bot());
 
-        Object.entries(bot).forEach(([key,value])=>{
-            console.log(key,value);
-            tbl[id][key]=value});
-
+        Object.entries(bot).forEach(([key, value]) => {
+            console.log(key, value);
+            tbl[id][key] = value
+        });
+        tbl[id].ai=generateFunction(tbl[id].aiString);
     });
-    game.bots=tbl.slice();
- //   game.bots=JSON.parse(window.localStorage.getItem("bots").slice());
+    game.bots = tbl.slice();
+    //   game.bots=JSON.parse(window.localStorage.getItem("bots").slice());
 
 }

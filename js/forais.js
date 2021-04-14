@@ -50,8 +50,8 @@ var addBot = function (x, y, ai, owner = "A" + Date.now() + Math.floor(Math.rand
   let newBot = new Bot(x, y, 20, randomColor(), ai, owner);
 
   game.bots.push(newBot);
-
-
+  
+  return newBot;
 }
 
 var addBotFromCode = function (x, y, owner) {
@@ -61,16 +61,26 @@ var addBotFromCode = function (x, y, owner) {
   }
 
 
-  var newAi =
-    game.functionSt + "/*" + game + "*/" +
-    'v.setVar(bot.owner,new Variabler(bot.owner));v=v.getVar(bot.owner);let game="";  \n' +
-    game.cmCode.getValue() +
-    "\n return \"WAIT\" ;}";
+  var newAi = genAiString(game.cmCode.getValue());
+ 
+  let fun = generateFunction(newAi);
 
-  let fun = new Function("return " + newAi)();
+  let addedBot=addBot(x, y, fun, owner);
 
-  addBot(x, y, fun, owner);
+  addedBot.aiString=newAi;
 };
 
+function generateFunction(code){
+
+  return new Function("return " + code)();
+}
+
+function genAiString(stringCode){
+  return  game.functionSt  +
+  'v.setVar(bot.owner,new Variabler(bot.owner));v=v.getVar(bot.owner);let game="";  \n' +
+ stringCode +
+  "\n return \"WAIT\" ;}";
+
+}
 
 

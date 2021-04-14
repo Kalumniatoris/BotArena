@@ -29,6 +29,8 @@ class Bot extends Entity {
 
     super(sx, sy, Math.random() * 2 * Math.PI, owner, size, color);
 
+
+
     this.health = 100;
     this.maxhealth = 100;
     this.rspeed = Math.PI / 180;
@@ -55,6 +57,11 @@ class Bot extends Entity {
     this.baseUpgradeCost = 10;
 
     this.upgradeCount = 0;
+    
+    //for saving purposes?
+    this.aiString="";
+
+    //
     //this.experience=0;
   }
 
