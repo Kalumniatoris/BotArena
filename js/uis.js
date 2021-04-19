@@ -44,6 +44,19 @@ document.body.onload = () => {
   }
 
 
+  
+  let btnQSave = $("#btnQSave")[0];
+  btnQSave.addEventListener("click", function () {
+  saveBots();
+  });
+
+  
+  let btnQLoad= $("#btnQLoad")[0];
+  btnQLoad.addEventListener("click", function () {
+    loadBots();
+  });
+
+
 
   loadBots();
 
