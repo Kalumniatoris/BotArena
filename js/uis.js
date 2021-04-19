@@ -45,7 +45,7 @@ document.body.onload = () => {
 
 
 
-  
+  loadBots();
 
   // ReactDOM.render(rc(BotInfo,{bot:{owner:"sample Owner2",health:100,maxhealth:100,experience:0,totalExperience:100}}),$('#bst')[0]);
 };

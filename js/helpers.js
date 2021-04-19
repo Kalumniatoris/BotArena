@@ -52,12 +52,16 @@ function loadBots() {
         tbl.push(new Bot());
 
         Object.entries(bot).forEach(([key, value]) => {
-            console.log(key, value);
+          //  console.log(key, value);
             tbl[id][key] = value
         });
         tbl[id].ai=generateFunction(tbl[id].aiString);
     });
-    game.bots = tbl.slice();
+
+    ////todo try to add separatell
+    game.bots = game.bots.slice();
+
+    tbl.forEach((bot)=>{game.bots.push(bot)});
     //   game.bots=JSON.parse(window.localStorage.getItem("bots").slice());
 
 }
