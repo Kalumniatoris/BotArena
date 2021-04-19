@@ -2,14 +2,16 @@
 document.body.onload = () => {
 
   game.variabler=new Variabler("GAME");
-  if(window.localStorage.getItem("codes")!=null){
-    codes=JSON.parse(window.localStorage.getItem("codes")).slice();
-  }
+
+ 
+
   game.cmCode = CodeMirror($("#codeArea")[0], {
     value:codes[0],
     mode: "javascript",
     theme: "abcdef",
   });
+  
+  loadCode();
 
   $("#codeSt")[0].textContent = game.functionSt;
 
@@ -27,9 +29,7 @@ document.body.onload = () => {
   });
 
   let btnKill = $("#btnKill")[0];
-  btnKill.addEventListener("click", function () {
-    game.bots.splice(0,game.bots.length);
-  });
+  btnKill.addEventListener("click", killAllBots);
 
   let btnViews = $("#btnViews")[0];
   btnViews.addEventListener("click", function () {
@@ -47,13 +47,13 @@ document.body.onload = () => {
   
   let btnQSave = $("#btnQSave")[0];
   btnQSave.addEventListener("click", function () {
-  saveBots();
+  saveAll();
   });
 
   
   let btnQLoad= $("#btnQLoad")[0];
   btnQLoad.addEventListener("click", function () {
-    loadBots();
+    loadAll();
   });
 
 

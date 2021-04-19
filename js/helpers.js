@@ -40,12 +40,32 @@ function saveAnyCode() {
     console.log("saving completed");
 
 };
+function loadCode(){
+    if(window.localStorage.getItem("codes")!=null){
+
+        codes=JSON.parse(window.localStorage.getItem("codes")).slice();
+      }
+
+      console.log(codes);
+      game.cmCode.setValue(codes[0]);
+}
+
+function saveAll(){
+    saveBots();
+    saveAnyCode();
+}
+function loadAll(){
+    loadCode();
+    loadBots();
+}
 
 function saveBots() {
     window.localStorage.setItem("bots", JSON.stringify(game.bots));
 }
 
 function loadBots() {
+    
+
     var tempbots = JSON.parse(window.localStorage.getItem("bots").slice());
     var tbl = [];
     tempbots.forEach((bot, id) => {
@@ -59,9 +79,13 @@ function loadBots() {
     });
 
     ////todo try to add separatell
-    game.bots = game.bots.slice();
-
+   // game.bots = game.bots.slice();
+    killAllBots();
     tbl.forEach((bot)=>{game.bots.push(bot)});
     //   game.bots=JSON.parse(window.localStorage.getItem("bots").slice());
 
 }
+
+function killAllBots() {
+    game.bots.splice(0,game.bots.length);
+  }
