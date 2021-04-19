@@ -47,7 +47,15 @@ var checkCode = function (code) {
 };
 
 var addBot = function (x, y, ai, owner = "A" + Date.now() + Math.floor(Math.random() * 1000000)) {
-  let newBot = new Bot(x, y, 20, randomColor(), ai, owner);
+
+  let tmpcolor;
+  if($("#chRndColor")[0].checked){
+  tmpcolor=randomColor();}
+  else{
+    tmpcolor=$("#inColor")[0].value;
+  }
+
+  let newBot = new Bot(x, y, 20,tmpcolor, ai, owner);
 
   game.bots.push(newBot);
   

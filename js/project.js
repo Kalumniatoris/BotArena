@@ -49,7 +49,13 @@ const ca = (p) => {
     ) {
       return;
     }
-    addBotFromCode(p.mouseX,p.mouseY);
+
+    let tow=$("#txtOwner")[0].value
+    if(tow==""){
+    addBotFromCode(p.mouseX,p.mouseY);}
+    else{
+      addBotFromCode(p.mouseX,p.mouseY,tow);
+    }
    // game.addBotWithCMAI(p.mouseX, p.mouseY, p);
   };
 };

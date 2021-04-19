@@ -10,7 +10,7 @@ document.body.onload = () => {
     mode: "javascript",
     theme: "abcdef",
   });
-  
+
   loadCode();
 
   $("#codeSt")[0].textContent = game.functionSt;
@@ -58,6 +58,11 @@ document.body.onload = () => {
 
 
 
+  var txtOwner=$("#txtOwner");
+  var inColor=$("#inColor");
+  var chRndColor=$("#chRndColor");
+
+  
   loadBots();
 
   // ReactDOM.render(rc(BotInfo,{bot:{owner:"sample Owner2",health:100,maxhealth:100,experience:0,totalExperience:100}}),$('#bst')[0]);

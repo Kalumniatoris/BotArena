@@ -1,64 +1,88 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/css.css">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <!--code mirror css-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5/lib/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.60.0/theme/abcdef.min.css">
-    <title>Bots</title>
-  </head>
-  <body class=" bg-dark">
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Cosejp 2</a>
-            <a class="" href="./info.html">Info</a>
-        </div>
-    </nav>
-    <div class="container">
-    <div id="arenaCanvas"></div>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/css.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <!--code mirror css-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5/lib/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.60.0/theme/abcdef.min.css">
+  <title>Bots</title>
+</head>
+
+<body class=" bg-dark">
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Cosejp 2</a>
+      <a class="" href="./info.html">Info</a>
     </div>
-    <div class="container">
+  </nav>
+  <div class="container">
+    <div id="arenaCanvas"></div>
+  </div>
+  <div class="container">
     <div class="btn-group">
-        <button type="button" class="btn btn-dark btn-outline-light" id="btnPause">Pause  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16"><path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/> </svg></button>
-        <button type="button" class="btn btn-dark btn-outline-light" id="btnKill">Kill all bots</button>
-        <button type="button" class="btn btn-dark btn-outline-light" id="btnViews" contenteditable="true">View views</button>
+      <button type="button" class="btn btn-dark btn-outline-light" id="btnPause">Pause <svg
+          xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill"
+          viewBox="0 0 16 16">
+          <path
+            d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
+        </svg></button>
+      <button type="button" class="btn btn-dark btn-outline-light" id="btnKill">Kill all bots</button>
+      <button type="button" class="btn btn-dark btn-outline-light" id="btnViews" contenteditable="true">View
+        views</button>
 
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-dark btn-outline-light" id="btnQSave">QSave</button>
       <button type="button" class="btn btn-dark btn-outline-light" id="btnQLoad">QLoad</button>
-    
-  </div>
+
     </div>
-    <div class="text-light container">
+  </div>
+  <div class="text-light container">
 
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="code-tab" data-bs-toggle="tab" data-bs-target="#code" type="button" role="tab" aria-controls="code" aria-selected="true">Code</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab" aria-controls="stats" aria-selected="false">Stats</button>
-        </li>
-      </ul>
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="home-tab">
-            
-            <span id="codeSt">---</span>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="code-tab" data-bs-toggle="tab" data-bs-target="#code" type="button"
+          role="tab" aria-controls="code" aria-selected="true">Code</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="stats-tab" data-bs-toggle="tab" data-bs-target="#stats" type="button" role="tab"
+          aria-controls="stats" aria-selected="false">Stats</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="code" role="tabpanel" aria-labelledby="home-tab">
+        <div class="input-group"><span class="input-group-text">Owner (optional):</span> <input type="text"
+            aria-label="Owner" id="txtOwner" class="form-control"> </div>
 
-            <div id="codeArea"></div>
-    
-    
+        <div class="input-group"><span class="input-group-text">Color</span> <input type="color" id="inColor"
+            class="form-control form-control-color"> 
+            <div class="input-group-prepend">
+              <div class="input-group-text">Random? 
+              <input type="checkbox" id="chRndColor" checked> 
+              </div>
+            </div>
+            
+              </div>
+
+        <span id="codeSt">---</span>
+
+
+        <div id="codeArea"></div>
+
+
         <span>}</span>
         <div id="t"></div>
         <div class="container">
           <p>TODO: put info about parameters, returns and variables here</p>
-            <!--
+          <!--
             <br>
 
             TODO: make it better and current.
@@ -75,71 +99,77 @@
             <span>seen:{owner,health (%of max),distance,angleTo, angle (angles are relative to bot's angle)}</span> <span style="width:10px"> <span>Array of other bots seen by this bot</span>
         
             -->
-          </div>
+        </div>
 
-        </div>
-        <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="profile-tab">
-            <table class="table text-light">
-                <thead><tr> <th scope="col">Owner</th>
-                    <th scope="col">Health</th>
-                    <th scope="col">Max Health</th>
-                    <th scope="col">Experience</th>
-                    <th scope="col">Total Experience</th>
-                
-                
-                </tr></thead>
-                <tbody id="bst"></tbody>
-            </table>
-            
-        </div>
       </div>
+      <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="profile-tab">
+        <table class="table text-light">
+          <thead>
+            <tr>
+              <th scope="col">Owner</th>
+              <th scope="col">Health</th>
+              <th scope="col">Max Health</th>
+              <th scope="col">Experience</th>
+              <th scope="col">Total Experience</th>
 
 
- <!--codeV-->   
+            </tr>
+          </thead>
+          <tbody id="bst"></tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+    <!--codeV-->
 
 
 
-<!--code^-->
-</div>
+    <!--code^-->
+  </div>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/codemirror@5/lib/codemirror.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/codemirror@5/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5/lib/codemirror.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5/mode/javascript/javascript.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/p5collide@2.0.2/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5collide@2.0.2/index.min.js"></script>
 
- <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1/lib/p5.min.js"></script>
 
- <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>   
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
- 
- 
- <!--let's try react?-->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
 
- <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 
- <!--
+  <!--let's try react?-->
+
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!--
 <script src="https://unpkg.com/react@15/dist/react.js"></script>
 <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/react-dot-fragment@0.2.10/lib/index.min.js"></script>-->
+  <!--<script src="https://cdn.jsdelivr.net/npm/react-dot-fragment@0.2.10/lib/index.min.js"></script>-->
 
-<script src="https://cdn.jsdelivr.net/npm/react-fragment@1.0.0/index.min.js"></script>
-<!---->
- 
- <script src="./js/project.js"></script>
- 
- <script src="./js/entity.js"></script>
- <script src="./js/bot.js"></script>
- <script src="./js/bullet.js"></script>
- <script src="./js/uis.js"></script>
- <script src="./js/helpers.js"></script>
- <script src="./js/forais.js"></script>
-<script src="./js/reactThings.js"></script>
-<script src="./js/codes.js"></script>
-<script src="js/koh.js"></script>
-<script src="./js/variabler.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-fragment@1.0.0/index.min.js"></script>
+  <!---->
+
+  <script src="./js/project.js"></script>
+
+  <script src="./js/entity.js"></script>
+  <script src="./js/bot.js"></script>
+  <script src="./js/bullet.js"></script>
+  <script src="./js/uis.js"></script>
+  <script src="./js/helpers.js"></script>
+  <script src="./js/forais.js"></script>
+  <script src="./js/reactThings.js"></script>
+  <script src="./js/codes.js"></script>
+  <script src="js/koh.js"></script>
+  <script src="./js/variabler.js"></script>
 
 </body>
+
 </html>
