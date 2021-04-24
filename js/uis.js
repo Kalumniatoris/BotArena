@@ -51,7 +51,7 @@ document.body.onload = () => {
   });
 
   
-  let btnQLoad= $("#btnQLoad")[0];
+  let btnQLoad= $("#btnQLoad")[0]; 
   btnQLoad.addEventListener("click", function () {
     loadAll();
   });
@@ -62,8 +62,8 @@ document.body.onload = () => {
   var inColor=$("#inColor");
   var chRndColor=$("#chRndColor");
 
-  
-  loadBots();
+
+  loadAll();
 
   // ReactDOM.render(rc(BotInfo,{bot:{owner:"sample Owner2",health:100,maxhealth:100,experience:0,totalExperience:100}}),$('#bst')[0]);
 };
