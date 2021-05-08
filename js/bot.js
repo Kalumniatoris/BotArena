@@ -528,7 +528,7 @@ class Bot extends Entity {
             payForUpgrade(p);
             if (canAfford(p)) {
               payForUpgrade(p);
-              me.maxBullets = Math.ceil(me.maxBullets*1.1+5);
+              me.bulletSpeed*=1.3;
               upgraded=true;
             }
           }
