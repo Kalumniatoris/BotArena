@@ -25,274 +25,312 @@
         <div class="row">
             <div class="col-3">Returns</div>
             <div class="col"><button class="btn btn-dark text-secondary btn-outline-secondary" type="button"
-                    data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false"
+                    data-bs-toggle="collapse" data-bs-target=".returns-collapse" aria-expanded="false"
                     aria-controls="col_fire col_left col_right col_faster col_slower col_upgrade col_split col_heal">Toggle
                     all</button>
-                </div>
-                <div class="col"><button class="btn btn-dark text-secondary btn-outline-secondary" id="btnHideReturns"
-                        type="button">Hide all</button></div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <p>Bot's AI needs to <code>return</code> specific value to work in array format, where first element
-                        is
-                        string with action and second one is parameter for that action
-                        <code>return ["action", value];</code>
-                        for example <code>return ["LEFT",0.05];</code>
-                    </p>
-                    <p>If action have no parameter or if you want to use default one you may use simple format
-                        <code>return "action";</code> for example <code>return "fire";</code>
-                    </p>
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col-2">
-                   
-                    <p class="h4">FIRE<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#col_fire" aria-expanded="false">(click to toggle ...)</button></p>
-                </div>
-                <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_fire">
-                    <p>Parameter: none</p><br>
-                    <p>Attempts to fire bullet directed as bot.</p>
-                    <p>bullets will not harm anybot in the same 'OWNER' group.</p>
-                    <p>Will do nothing if bot's fireCooldown is higher than 0.</p>
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col-2">
-                    <p class="h4">LEFT<button class="btn btn-dark text-secondary " type="button" data-bs-toggle="collapse"
-                            data-bs-target="#col_left" aria-expanded="false">(click to toggle ...)</button></p>
-                </div>
-                <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_left">
-                    <p>Parameter: angle in radians. Default value: bot's maximum turn angle</p><br>
-                    <p>Turns bot left by given angle, if value is higher than bot's maximum angle it would turn by it's
-                        maximum value</p>
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col-2">
-                    <p class="h4">RIGHT<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#col_right" aria-expanded="false">(click to toggle ...)</button></p>
-                </div>
-                <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_right">
-                    <p>Parameter: angle in radians. Default value: bot's maximum turn angle</p><br>
-                    <p>Turns bot right by given angle, if value is higher than bot's maximum angle it would turn by it's
-                        maximum value</p>
-                </div>
-
-            </div>
-            <div class="row border">
-                <div class="col-2">
-                    <p class="h4">FASTER<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#col_faster" aria-expanded="false">(click to toggle ...)</button></p>
-                </div>
-                <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_faster">
-                    <p>Parameter: none.</p><br>
-                    <p>Increases speed of bot. Speed will not exceed bot's maxSpeed</p>
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col-2">
-                    <p class="h4">SLOWER<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#col_slower" aria-expanded="false">(click to toggle ...)</button></p>
-                </div>
-                <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_slower">
-                    <p>Parameter: none.</p><br>
-                    <p>Decreases speed of bot. Speed may get into negative, which would effect in bot moving backward.
-                        Reverse speed will not exceed half of bot's maxSpeed</p>
-                </div>
-            </div>
-
-            <div class="row border">
-                <div class="col-2">
-                    <p class="h4">SPLIT<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#col_split" aria-expanded="false">(click to toggle ...)</button></p>
-                </div>
-                <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_split">
-                    <p>Parameter: none.</p><br>
-                    <p>Divides bot into two smaller bots, each bot will have decreased damage and health (both current
-                        and
-                        maximum) compared to original bot. Divided bots will have the same AI and 'OWNER' group as this bot.</p>
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col-2">
-                    <p class="h4">UPGRADE<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#col_upgrade" aria-expanded="false">(click to toggle ...)</button></p>
-                </div>
-                <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_upgrade">
-                    <p>Parameter: What to upgrade, options:
-                        "health","healing","damage","bulletcount","speed","sight","firerate","bulletspeed".</p>
-                    <p>Upgrades attribute of bot. Requires experience to work. Upgrade costs is calculated: CM * base *
-                        (upgradeCount + 1). Where CM is cost multiplier of specific upgrade, base is starting cost (10
-                        on
-                        default) and upgradeCount is how many times bot was already upgraded (regardless of upgrade
-                        type)
-                    </p><br>
-                    <p class="border-bottom">
-                    <p>"health" (or "hp"):</p>
-                    <p>Cost multiplier: 1</p>
-                    <p>Increases bot's current and maximum health 1.5 times</p>
-                    </p>
-
-                    <p class="border-bottom">
-                    <p>"healing":</p>
-                    <p>Cost multiplier: 1</p>
-                    <p>Increases how much bot heals itself using "heal" command. Each upgrade will increase healing
-                        efficiency slightly over 2 times.</p>
-                    </p>
-
-                    <p class="border-bottom">
-                    <p>"damage":</p>
-                    <p>Cost multiplier: 2</p>
-                    <p>Increases strength of bot's bullets 1.5 times</p>
-                    </p>
-
-                    <p class="border-bottom">
-                    <p>"bulletcount" (or "maxbullets"):</p>
-                    <p>Cost multiplier: 2</p>
-                    <p>Increases how many bullets from bot's 'OWNER' can be on board 1.5 times</p>
-                    </p>
-
-                    <p class="border-bottom">
-                    <p>"speed":</p>
-                    <p>Cost multiplier: 2</p>
-                    <p>Increases bot's maximum speed 1.2 times and bot's maximum turning angle 1.5 times</p>
-                    </p>
-
-                    <p class="border-bottom">
-                    <p>"sight"</p>
-                    <p>Cost multiplier: 0.2</p>
-                    <p>Increases area of view of bot. Angle 1.2 times and distance 1.2 times.</p>
-                    </p>
-
-                    <p class="border-bottom">
-                    <p>"firerate":</p>
-                    <p>Cost multiplier: 2.5</p>
-                    <p>Decreases delay between bullets to 0.8 of current value</p>
-                    </p>
-
-                    <p class="border-bottom">
-                    <p>"bulletspeed":</p>
-                    <p>Cost multiplier: 1</p>
-                    <p>Increases speed of (new) bullets shoot by bot 1.3 times</p>
-                    </p>
-
-
-                </div>
-            </div>
-            <div class="row border">
-                <div class="col-2">
-                    <p class="h4">HEAL<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#col_heal" aria-expanded="false">(click to toggle ...)</button></p>
-                </div>
-                <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_heal">
-                    <p>Parameter: amount. Default value: bot's current experience</p>Heals bot by amount * bot's healing
-                    (1
-                    without upgrades) at cost of amount experience. <p> Will not overheal.</p>
-                    <p>If specified amount is higher than bot current experience will do nothing.</p>
-                    <p> If healed amount would exceed maximum one excess experience will not be returned.</p>
-                    <p>In short: healing while being completely healthly will take experience without any benefits.</p>
-                </div>
-            </div>
-            <div class="row"></div>
+            <div class="col"><button class="btn btn-dark text-secondary btn-outline-secondary" id="btnHideReturns"
+                    type="button">Hide all</button></div>
         </div>
-
-        <br>
-
-        <div class="container text-light">
-            <div class="row">Parameters</div>
-            <div class="row">
-                <p>Bots have some values accessible to their AI's to read passed as argument to their function,
-                    avaliable in
-                    read only (except for v) objects</p>
+        <div class="row">
+            <div class="col">
+                <p>Bot's AI needs to <code>return</code> specific value to work in array format, where first element
+                    is
+                    string with action and second one is parameter for that action
+                    <code>return ["action", value];</code>
+                    for example <code>return ["LEFT",0.05];</code>
+                </p>
+                <p>If action have no parameter or if you want to use default one you may use simple format
+                    <code>return "action";</code> for example <code>return "fire";</code>
+                </p>
             </div>
-            <div class="row border">
+        </div>
+        <div class="row border">
+            <div class="col-2">
 
-                <div class="col-2">
-                    <p>bot</p>
-                </div>
-                <div class="col-10 border-start">
-                    <p>Informations about this bot.</p><br>
-                    <p><code>bot.x</code>: Current x position of bot.</p>
-                    <p><code>bot.y</code>: Current y position of bot.</p>
-                    <p><code>bot.speed</code>: Current speed of bot.</p>
-                    <p><code>bot.angle</code>: Current angle of bot.</p>
-                    <p><code>bot.health</code>: Current health of bot.</p>
-                    <p><code>bot.maxhealth</code>: Maximum health of bot.</p>
-                    <p><code>bot.exp</code> or <code>bot.experience</code>: Current experience of bot (gained minus
-                        spend on
-                        upgrades and healing)</p>
-                    <p><code>bot.totalExp</code> or <code>bot.totalExperience</code>: Experience gained by bot.</p>
-                    <p><code>bot.turnSpeed</code>: Maximum angle bot can turn using <code>"LEFT"</code> and
-                        <code>"RIGHT"</code> commands.
-                    </p>
-                    <p><code>bot.owner</code>: 'OWNER' value of bot.</p>
-
-                </div>
+                <p class="h4">FIRE<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#col_fire" aria-expanded="false">(click to toggle ...)</button></p>
             </div>
-
-            <div class="row border">
-                <div class="col-2">bullets</div>
-                <div class="col-10 border-start">
-                    <p>Informations about this bot's bullets.</p><br>
-                    <p><code>bullets.count</code>: Amount of bullets of this bot's 'OWNER' on arena.</p>
-                    <p><code>bullets.max</code>: Maximum amount of bullets on arena allowed for this bot's 'OWNER'</p>
-                    <p><code>bullets.speed</code>: Speed of bullets shoot by this bot</p>
-                    <p><code>bullets.damage</code>: Damage that bullets shoot by this bot could deal</p>
-
-
-                </div>
+            <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_fire">
+                <p>Parameter: none</p><br>
+                <p>Attempts to fire bullet directed as bot.</p>
+                <p>bullets will not harm anybot in the same 'OWNER' group.</p>
+                <p>Will do nothing if bot's fireCooldown is higher than 0.</p>
             </div>
-            <div class="row border">
-                <div class="col-2">arena</div>
-                <div class="col-10 border-start">
-                    <p>Size of arena.</p><br>
-                    <p><code>arena.width</code>: Width of current arena.</p>
-                    <p><code>arena.height</code>: Height of current arena</p>
-                </div>
+        </div>
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">LEFT<button class="btn btn-dark text-secondary " type="button" data-bs-toggle="collapse"
+                        data-bs-target="#col_left" aria-expanded="false">(click to toggle ...)</button></p>
             </div>
-            <div class="row border">
-                <div class="col-2">seen</div>
-                <div class="col-10 border-start">
-                    <p>Array of other bots 'detected' by this bot.</p><br>
-                    <p><code>seen[id].distance</code>: Distance to that bot.</p>
-                    <p><code>seen[id].angleTo</code>: Angle relative to that bot.</p>
-                    <p><code>seen[id].owner</code>: 'OWNER' of that bot.</p>
-                    <p><code>seen[id].health</code>: Current health of that bot.</p>
-                </div>
+            <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_left">
+                <p>Parameter: angle in radians. Default value: bot's maximum turn angle</p><br>
+                <p>Turns bot left by given angle, if value is higher than bot's maximum angle it would turn by it's
+                    maximum value</p>
             </div>
-            <div class="row border">
-                <div class="col-2">costs</div>
-                <div class="col-10 border-start">
-                    <p>Current costs of upgrades avaliable to this bot.</p><br>
-                    <p><code>cost.(health/healing/firerate/speed/bulletspeed/sight/damage/bulletcount)</code>: Cost for
-                        next
-                        upgrade for that attribute</p>
-                </div>
+        </div>
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">RIGHT<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#col_right" aria-expanded="false">(click to toggle ...)</button></p>
             </div>
-            <div class="row border">
-                <div class="col-2">v</div>
-                <div class="col-10 border-start">
-                    <p>Object avaliable to user, doesn't contain any values by default, values here are saved between
-                        bots
-                        with the same 'OWNER' (and between steps).</p>
-                    <p>Example usage</p><br>
-                    <p><code>v.test=10</code>: saves 10 into variable v.test</p>
-                    <p><code>var test=v.test</code>: reads (semi-global) variable v.test into local variable test</p>
-
-                </div>
+            <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_right">
+                <p>Parameter: angle in radians. Default value: bot's maximum turn angle</p><br>
+                <p>Turns bot right by given angle, if value is higher than bot's maximum angle it would turn by it's
+                    maximum value</p>
             </div>
-
 
         </div>
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">FASTER<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#col_faster" aria-expanded="false">(click to toggle ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_faster">
+                <p>Parameter: none.</p><br>
+                <p>Increases speed of bot. Speed will not exceed bot's maxSpeed</p>
+            </div>
+        </div>
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">SLOWER<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#col_slower" aria-expanded="false">(click to toggle ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_slower">
+                <p>Parameter: none.</p><br>
+                <p>Decreases speed of bot. Speed may get into negative, which would effect in bot moving backward.
+                    Reverse speed will not exceed half of bot's maxSpeed</p>
+            </div>
+        </div>
 
-        <script src="./js/infos.js"></script>
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">SPLIT<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#col_split" aria-expanded="false">(click to toggle ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_split">
+                <p>Parameter: none.</p><br>
+                <p>Divides bot into two smaller bots, each bot will have decreased damage and health (both current
+                    and
+                    maximum) compared to original bot. Divided bots will have the same AI and 'OWNER' group as this bot.
+                </p>
+            </div>
+        </div>
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">UPGRADE<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#col_upgrade" aria-expanded="false">(click to toggle ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_upgrade">
+                <p>Parameter: What to upgrade, options:
+                    "health","healing","damage","bulletcount","speed","sight","firerate","bulletspeed".</p>
+                <p>Upgrades attribute of bot. Requires experience to work. Upgrade costs is calculated: CM * base *
+                    (upgradeCount + 1). Where CM is cost multiplier of specific upgrade, base is starting cost (10
+                    on
+                    default) and upgradeCount is how many times bot was already upgraded (regardless of upgrade
+                    type)
+                </p><br>
+                <p class="border-bottom">
+                <p>"health" (or "hp"):</p>
+                <p>Cost multiplier: 1</p>
+                <p>Increases bot's current and maximum health 1.5 times</p>
+                </p>
 
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-            crossorigin="anonymous"></script>
+                <p class="border-bottom">
+                <p>"healing":</p>
+                <p>Cost multiplier: 1</p>
+                <p>Increases how much bot heals itself using "heal" command. Each upgrade will increase healing
+                    efficiency slightly over 2 times.</p>
+                </p>
+
+                <p class="border-bottom">
+                <p>"damage":</p>
+                <p>Cost multiplier: 2</p>
+                <p>Increases strength of bot's bullets 1.5 times</p>
+                </p>
+
+                <p class="border-bottom">
+                <p>"bulletcount" (or "maxbullets"):</p>
+                <p>Cost multiplier: 2</p>
+                <p>Increases how many bullets from bot's 'OWNER' can be on board 1.5 times</p>
+                </p>
+
+                <p class="border-bottom">
+                <p>"speed":</p>
+                <p>Cost multiplier: 2</p>
+                <p>Increases bot's maximum speed 1.2 times and bot's maximum turning angle 1.5 times</p>
+                </p>
+
+                <p class="border-bottom">
+                <p>"sight"</p>
+                <p>Cost multiplier: 0.2</p>
+                <p>Increases area of view of bot. Angle 1.2 times and distance 1.2 times.</p>
+                </p>
+
+                <p class="border-bottom">
+                <p>"firerate":</p>
+                <p>Cost multiplier: 2.5</p>
+                <p>Decreases delay between bullets to 0.8 of current value</p>
+                </p>
+
+                <p class="border-bottom">
+                <p>"bulletspeed":</p>
+                <p>Cost multiplier: 1</p>
+                <p>Increases speed of (new) bullets shoot by bot 1.3 times</p>
+                </p>
+
+
+            </div>
+        </div>
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">HEAL<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#col_heal" aria-expanded="false">(click to toggle ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse returns-collapse" id="col_heal">
+                <p>Parameter: amount. Default value: bot's current experience</p>Heals bot by amount * bot's healing
+                (1
+                without upgrades) at cost of amount experience. <p> Will not overheal.</p>
+                <p>If specified amount is higher than bot current experience will do nothing.</p>
+                <p> If healed amount would exceed maximum one excess experience will not be returned.</p>
+                <p>In short: healing while being completely healthly will take experience without any benefits.</p>
+            </div>
+        </div>
+        <div class="row"></div>
+    </div>
+
+    <br>
+
+
+
+    <div class="container text-light">
+
+        <div class="row">
+
+            <div class="col">Parameters </div>
+            <div class="col"><button class="btn btn-dark text-secondary btn-outline-secondary" type="button"
+                    data-bs-toggle="collapse" data-bs-target=".parameters-collapse" aria-expanded="false"
+                    aria-controls="col_fire col_left col_right col_faster col_slower col_upgrade col_split col_heal">Toggle
+                    all</button>
+            </div>
+            <div class="col"><button class="btn btn-dark text-secondary btn-outline-secondary" id="btnHideParameters"
+                    type="button">Hide all</button></div>
+        </div>
+
+        <div class="row">
+            <p>Bots have some values accessible to their AI's to read passed as argument to their function,
+                avaliable in
+                read only (except for v) objects</p>
+        </div>
+        <div class="row border">
+
+            <div class="col-2">
+                <p class="h4">bot<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#par_bot" aria-expanded="false">(click to toggle ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse parameters-collapse" id="par_bot">
+                <p>Informations about this bot.</p><br>
+                <p><code>bot.x</code>: Current x position of bot.</p>
+                <p><code>bot.y</code>: Current y position of bot.</p>
+                <p><code>bot.speed</code>: Current speed of bot.</p>
+                <p><code>bot.angle</code>: Current angle of bot.</p>
+                <p><code>bot.health</code>: Current health of bot.</p>
+                <p><code>bot.maxhealth</code>: Maximum health of bot.</p>
+                <p><code>bot.exp</code> or <code>bot.experience</code>: Current experience of bot (gained minus
+                    spend on
+                    upgrades and healing)</p>
+                <p><code>bot.totalExp</code> or <code>bot.totalExperience</code>: Experience gained by bot.</p>
+                <p><code>bot.turnSpeed</code>: Maximum angle bot can turn using <code>"LEFT"</code> and
+                    <code>"RIGHT"</code> commands.
+                </p>
+                <p><code>bot.owner</code>: 'OWNER' value of bot.</p>
+
+            </div>
+        </div>
+
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4"> bullets<button class="btn btn-dark text-secondary" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#par_bullets" aria-expanded="false">(click to toggle
+                        ...)</button>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse parameters-collapse" id="par_bullets">
+                <p>Informations about this bot's bullets.</p><br>
+                <p><code>bullets.count</code>: Amount of bullets of this bot's 'OWNER' on arena.</p>
+                <p><code>bullets.max</code>: Maximum amount of bullets on arena allowed for this bot's 'OWNER'</p>
+                <p><code>bullets.speed</code>: Speed of bullets shoot by this bot</p>
+                <p><code>bullets.damage</code>: Damage that bullets shoot by this bot could deal</p>
+
+
+            </div>
+        </div>
+
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">arena<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#par_arena" aria-expanded="false">(click to toggle
+                        ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse parameters-collapse" id="par_arena">
+                <p>Size of arena.</p><br>
+                <p><code>arena.width</code>: Width of current arena.</p>
+                <p><code>arena.height</code>: Height of current arena</p>
+            </div>
+        </div>
+
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">seen<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#par_seen" aria-expanded="false">(click to toggle
+                        ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse parameters-collapse" id="par_seen">
+                <p>Array of other bots 'detected' by this bot.</p><br>
+                <p><code>seen[id].distance</code>: Distance to that bot.</p>
+                <p><code>seen[id].angleTo</code>: Angle relative to that bot.</p>
+                <p><code>seen[id].owner</code>: 'OWNER' of that bot.</p>
+                <p><code>seen[id].health</code>: Current health of that bot.</p>
+            </div>
+        </div>
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">costs<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#par_costs" aria-expanded="false">(click to toggle
+                        ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse parameters-collapse" id="par_costs">
+                <p>Current costs of upgrades avaliable to this bot.</p><br>
+                <p><code>cost.(health/healing/firerate/speed/bulletspeed/sight/damage/bulletcount)</code>: Cost for
+                    next
+                    upgrade for that attribute</p>
+            </div>
+        </div>
+
+        <div class="row border">
+            <div class="col-2">
+                <p class="h4">v<button class="btn btn-dark text-secondary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#par_v" aria-expanded="false">(click to toggle ...)</button></p>
+            </div>
+            <div class="col-10 border-start collapse multi-collapse parameters-collapse" id="par_v">
+                <p>Object avaliable to user, doesn't contain any values by default, values here are saved between
+                    bots
+                    with the same 'OWNER' (and between steps).</p>
+                <p>Example usage</p><br>
+                <p><code>v.test=10</code>: saves 10 into variable v.test</p>
+                <p><code>var test=v.test</code>: reads (semi-global) variable v.test into local variable test</p>
+
+            </div>
+        </div>
+
+
+
+    </div>
+    <script src="./js/infos.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
 
 
 </body>

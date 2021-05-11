@@ -7,5 +7,12 @@ document.body.onload = () => {
         
       });
 
+      let btnHideParameters=$("#btnHideParameters")[0];
 
+      btnHideParameters.addEventListener("click", function () {
+          $(".parameters-collapse").each((i,e)=>{let tmp=new bootstrap.Collapse(e,{toggle:false});tmp.hide();})
+          
+        });
+  
+  
 }
