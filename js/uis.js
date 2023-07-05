@@ -1,12 +1,12 @@
 //game.cmCode
 document.body.onload = () => {
 
-  game.variabler=new Variabler("GAME");
+  game.variabler = new Variabler("GAME");
 
- 
+
 
   game.cmCode = CodeMirror($("#codeArea")[0], {
-    value:codes[0],
+    value: codes[0],
     mode: "javascript",
     theme: "abcdef",
   });
@@ -44,23 +44,23 @@ document.body.onload = () => {
   }
 
 
-  
+
   let btnQSave = $("#btnQSave")[0];
   btnQSave.addEventListener("click", function () {
-  saveAll();
+    saveAll();
   });
 
-  
-  let btnQLoad= $("#btnQLoad")[0]; 
+
+  let btnQLoad = $("#btnQLoad")[0];
   btnQLoad.addEventListener("click", function () {
     loadAll();
   });
 
 
 
-  var txtOwner=$("#txtOwner");
-  var inColor=$("#inColor");
-  var chRndColor=$("#chRndColor");
+  var txtOwner = $("#txtOwner");
+  var inColor = $("#inColor");
+  var chRndColor = $("#chRndColor");
 
 
   loadAll();

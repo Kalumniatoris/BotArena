@@ -1,6 +1,6 @@
 class Variabler {
     data={};
-    colnstructor(owner){
+    constructor(owner){
         this.owner=owner;
         //this.data={};
     }

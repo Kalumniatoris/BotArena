@@ -17,46 +17,30 @@ game.debug.on=false;
 
 
 const ca = (p) => {
-    p.setup = function () {
-    var candiv = p.select("#arenaCanvas");
-
+  p.setup = function () {
+    const candiv = p.select("#arenaCanvas");
     p.createCanvas(candiv.width, 500);
     game.buffer = p.createGraphics(p.width, p.height);
-  //  p.background(0);
-      p.frameRate(game.config.drawUpdate);  
-
- 
-   // gamesetInterval(drawLoop, game.config.drawUpdate);
-  
+    p.frameRate(game.config.drawUpdate);
     game.startDraw();
     game.startLogic();
-    //setInterval(logicLoop, game.config.logicUpdate);
-
-  
   };
 
   p.draw = function () {
     p.image(game.buffer, 0, 0);
-    
   };
 
   p.mouseClicked = function () {
-    if (
-      p.mouseX > p.width ||
-      p.mouseX < 0 ||
-      p.mouseY > p.height ||
-      p.mouseY < 0
-    ) {
+    if (p.mouseX > p.width || p.mouseX < 0 || p.mouseY > p.height || p.mouseY < 0) {
       return;
     }
 
-    let tow=$("#txtOwner")[0].value
-    if(tow==""){
-    addBotFromCode(p.mouseX,p.mouseY);}
-    else{
-      addBotFromCode(p.mouseX,p.mouseY,tow);
+    const tow = $("#txtOwner")[0].value;
+    const addBotFromCodeArgs = [p.mouseX, p.mouseY];
+    if (tow !== "") {
+      addBotFromCodeArgs.push(tow);
     }
-   // game.addBotWithCMAI(p.mouseX, p.mouseY, p);
+    addBotFromCode(...addBotFromCodeArgs);
   };
 };
 

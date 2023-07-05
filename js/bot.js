@@ -65,79 +65,60 @@ class Bot extends Entity {
     //this.experience=0;
   }
 
-  draw() {
-    game.buffer.translate(this.x, this.y);
-    game.buffer.rotate(this.angle);
-    game.buffer.fill(this.color);
+draw() {
+  const { buffer, config } = game;
+  const { x, y, angle, color, size, seeDistance, seeAngle, health, maxhealth } = this;
 
-    //game.buffer.circle(0,0,this.size);
-    game.buffer.beginShape();
-    game.buffer.vertex(-this.size / 2, -this.size / 2);
-    game.buffer.vertex(-this.size / 2, this.size / 2);
-    game.buffer.vertex(this.size / 2, 0);
+  buffer.translate(x, y);
+  buffer.rotate(angle);
+  buffer.fill(color);
 
-    game.buffer.endShape();
-    game.buffer.circle(this.size / 5, 0, this.size / 10);
+  buffer.beginShape();
+  buffer.vertex(-size / 2, -size / 2);
+  buffer.vertex(-size / 2, size / 2);
+  buffer.vertex(size / 2, 0);
+  buffer.endShape();
 
-    // game.buffer.rect(-5,-5,10,10);
+  buffer.circle(size / 5, 0, size / 10);
 
-    if (game.config.showViews) {
-      game.buffer.push();
-      game.buffer.stroke(255);
-      let tc = [this.color[0], this.color[1], this.color[2], 20];
-      game.buffer.fill(tc);
-      game.buffer.line(0, 0, 1000, 0);
-      //game.buffer.fill(game.buffer.color(200,0,200,100));
 
-      // game.buffer.text("AA",100,100);
-      game.buffer.arc(
-        0,
-        0,
-        this.seeDistance * 2,
-        this.seeDistance * 2,
-        -this.seeAngle,
-        this.seeAngle,
-        "pie"
-      );
-
-      game.buffer.pop();
-    }
-
-    game.buffer.rotate(-this.angle);
-
-    game.buffer.push();
-    game.buffer.stroke(255);
-    game.buffer.noFill();
-    game.buffer.circle(0, 0, this.size);
-    game.buffer.pop();
-
-    //healthbar
-    game.buffer.fill("red");
-    game.buffer.rect(-this.size / 2, this.size, this.size, 5);
-
-    game.buffer.fill("green");
-    game.buffer.rect(
-      -this.size / 2,
-      this.size,
-      (this.size * this.health) / this.maxhealth,
-      5
-    );
-    //endhealthbar
-    game.buffer.translate(-this.x, -this.y);
-
-    if (game.config.showViews) {
-      let ay = this.y + this.seeDistance * Math.sin(this.angle - this.seeAngle);
-      let ax = this.x + this.seeDistance * Math.cos(this.angle - this.seeAngle);
-
-      let by = this.y + this.seeDistance * Math.sin(this.angle + this.seeAngle);
-      let bx = this.x + this.seeDistance * Math.cos(this.angle + this.seeAngle);
-
-      let tc = [this.color[0], this.color[1], this.color[2], 20];
-      game.buffer.fill(tc);
-
-      game.buffer.triangle(this.x, this.y, ax, ay, bx, by);
-    }
+  
+  if (config.showViews) {
+    buffer.push();
+    buffer.stroke(255);
+    const translucentColor = [...color, 20];
+    buffer.fill(translucentColor);
+    buffer.line(0, 0, 1000, 0);
+    buffer.arc(0, 0, seeDistance * 2, seeDistance * 2, -seeAngle, seeAngle, "pie");
+    buffer.pop();
   }
+
+  buffer.rotate(-angle);
+
+  buffer.push();
+  buffer.stroke(255);
+  buffer.noFill();
+  buffer.circle(0, 0, size);
+  buffer.pop();
+
+  buffer.fill("red");
+  buffer.rect(-size / 2, size, size, 5);
+
+  buffer.fill("green");
+  buffer.rect(-size / 2, size, (size * health) / maxhealth, 5);
+
+  buffer.translate(-x, -y);
+
+  if (config.showViews) {
+    const ay = y + seeDistance * Math.sin(angle - seeAngle);
+    const ax = x + seeDistance * Math.cos(angle - seeAngle);
+    const by = y + seeDistance * Math.sin(angle + seeAngle);
+    const bx = x + seeDistance * Math.cos(angle + seeAngle);
+    const translucentColor = [...color, 20];
+    buffer.fill(translucentColor);
+    buffer.triangle(x, y, ax, ay, bx, by);
+  }
+}
 
   step() {
     super.step();

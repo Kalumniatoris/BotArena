@@ -17,32 +17,37 @@ class Bullet extends Entity {
      dlog("B ,"+this);
   }
 
-  draw() {
-    game.buffer.push();
-    game.buffer.translate(this.x, this.y);
-    game.buffer.rotate(this.angle);
-    game.buffer.fill(this.color);
-    game.buffer.stroke(this.color);
-    game.buffer.circle(0, 0, this.size);
+draw() {
+  const { buffer } = game;
+  const { x, y, angle, color, size, px, py } = this;
 
-    game.buffer.rotate(-this.angle);
-    game.buffer.translate(-this.x, -this.y);
+  buffer.push();
+  buffer.translate(x, y);
+  buffer.rotate(angle);
+  buffer.fill(color);
+  buffer.stroke(color);
+  buffer.circle(0, 0, size);
 
-    game.buffer.push();
-    game.buffer.strokeWeight(this.size);
+  buffer.rotate(-angle);
+  buffer.translate(-x, -y);
 
-    game.buffer.line(this.px, this.py, this.x, this.y);
-    game.buffer.pop();
-    game.buffer.pop();
+  buffer.push();
+  buffer.strokeWeight(size);
+  buffer.line(px, py, x, y);
+  buffer.pop();
+  buffer.pop();
+}
+
+step() {
+  if (this.health <= 0) {
+    this.killMe();
+    return;
   }
 
-  step() {
-    if(this.health<=0){this.killMe();return;}
-
-    this.forward();
-    this.checkCollisions(game.bots);
-    this.destroyAtBorder();
-  }
+  this.forward();
+  this.checkCollisions(game.bots);
+  this.destroyAtBorder();
+}
 
   destroyAtBorder() {
     this.border("kill");
@@ -53,18 +58,46 @@ class Bullet extends Entity {
   }
 
   checkCollisions(targets) {
-    //targets = game.bots (potential targets)
-    let collided = [];
-    targets.forEach((t) => {
-      if (
-        collideLineCircle(this.x, this.y, this.px, this.py, t.x, t.y, t.size) && t.owner!=this.owner
-      ) {
-            this.health-=1;
-
-            if(t.damage(this.damage)==0){this.shooter.addExp(Math.ceil(t.totalExperience/2)+1)};
-            //if(t.health)
-        //collided.push(t);
+    targets.forEach((target) => {
+      if (collideLineCircle(this.x, this.y, this.px, this.py, target.x, target.y, target.size) && target.owner !== this.owner) {
+        this.health -= 1;
+        if (target.damage(this.damage) === 0) {
+          this.shooter.addExp(Math.ceil(target.totalExperience / 2) + 1);
+        }
+        // Draw sparks at the collision point
+        for (let i = 0; i < 10; i++) {
+          const sparkX = this.x + Math.random() * 20 - 10;
+          const sparkY = this.y + Math.random() * 20 - 10;
+          const sparkAngle = Math.random() * 2 * Math.PI;
+          const sparkSize = Math.random() * 2 + 1;
+          const sparkColor = randomColor(255,45,60);
+          const spark = new Spark(sparkX, sparkY, sparkAngle, sparkSize, sparkColor);
+          spark.draw();
+        }
       }
     });
+  }
+}
+
+////////////////
+
+class Spark {
+  constructor(x, y, angle, size, color) {
+    this.x = x;
+    this.y = y;
+    this.angle = angle;
+    this.size = size;
+    this.color = color;
+  }
+
+  draw() {
+    const { buffer } = game;
+    buffer.push();
+    buffer.translate(this.x, this.y);
+    buffer.rotate(this.angle);
+    buffer.fill(this.color);
+    buffer.noStroke();
+    buffer.circle(0, 0, this.size);
+    buffer.pop();
   }
 }
