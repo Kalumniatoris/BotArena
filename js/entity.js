@@ -61,38 +61,55 @@ class Entity {
 
   }
 
-  border(mode = "border") {
-    const isOutOfBounds = (this.x > game.buffer.width || this.x <= 0 || this.y > game.buffer.height || this.y <= 0);
+border(mode = "border") {
+  const isOutOfBounds = (this.x > game.buffer.width || this.x <= 0 || this.y > game.buffer.height || this.y <= 0);
+  
+  switch (mode) {
+    case "damage":
+      if (isOutOfBounds) {
+        this.health -= this.maxhealth / 10;
+      }
+      break;
 
-    switch (mode) {
-      case "damage":
-        if (isOutOfBounds) {
-          this.health -= this.maxhealth / 10;
-        }
-        break;
+    case "kill":
+      if (isOutOfBounds) {
+        this.killMe();
+      }
+      break;
 
-      case "kill":
-        if (isOutOfBounds) {
-          this.killMe();
-        }
-        break;
-
-      default:
+    case "warp":
+      if (isOutOfBounds) {
         if (this.x > game.buffer.width) {
-          this.x = game.buffer.width;
-        }
-        if (this.y > game.buffer.height) {
-          this.y = game.buffer.height;
-        }
-        if (this.x <= 0) {
           this.x = 0;
         }
-        if (this.y <= 0) {
+        if (this.y > game.buffer.height) {
           this.y = 0;
         }
-        break;
-    }
+        if (this.x <= 0) {
+          this.x = game.buffer.width;
+        }
+        if (this.y <= 0) {
+          this.y = game.buffer.height;
+        }
+      }
+      break;
+
+    default:
+      if (this.x > game.buffer.width) {
+        this.x = game.buffer.width;
+      }
+      if (this.y > game.buffer.height) {
+        this.y = game.buffer.height;
+      }
+      if (this.x <= 0) {
+        this.x = 0;
+      }
+      if (this.y <= 0) {
+        this.y = 0;
+      }
+      break;
   }
+}
 
   forward() {
     const { x, y, speed, angle } = this;

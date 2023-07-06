@@ -151,7 +151,8 @@ draw() {
         exp: this.experience,
         totalExp: this.totalExperience,
         experience:this.experience,
-        totalExperience: this.totalExperience
+        totalExperience: this.totalExperience,
+        maxSpeed:this.maxSpeed
       },
       {
         count: bc,
