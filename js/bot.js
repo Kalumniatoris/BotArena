@@ -81,15 +81,20 @@ draw() {
 
   buffer.circle(size / 5, 0, size / 10);
 
-
-  
   if (config.showViews) {
     buffer.push();
-    buffer.stroke(255);
-    const translucentColor = [...color, 20];
+    buffer.noStroke();
+    const translucentColor = [...color.slice(0, 3), 20];
     buffer.fill(translucentColor);
-    buffer.line(0, 0, 1000, 0);
-    buffer.arc(0, 0, seeDistance * 2, seeDistance * 2, -seeAngle, seeAngle, "pie");
+    buffer.arc(
+      0,
+      0,
+      seeDistance * 2,
+      seeDistance * 2,
+      -seeAngle,
+      seeAngle,
+      "pie"
+    );
     buffer.pop();
   }
 
@@ -108,16 +113,6 @@ draw() {
   buffer.rect(-size / 2, size, (size * health) / maxhealth, 5);
 
   buffer.translate(-x, -y);
-
-  if (config.showViews) {
-    const ay = y + seeDistance * Math.sin(angle - seeAngle);
-    const ax = x + seeDistance * Math.cos(angle - seeAngle);
-    const by = y + seeDistance * Math.sin(angle + seeAngle);
-    const bx = x + seeDistance * Math.cos(angle + seeAngle);
-    const translucentColor = [...color, 20];
-    buffer.fill(translucentColor);
-    buffer.triangle(x, y, ax, ay, bx, by);
-  }
 }
 
   step() {
@@ -180,7 +175,7 @@ draw() {
       param = s[1];
     }
 
-    action=action.toUpperCase();
+    action=(action+"").toUpperCase();
     switch (action) {
       case "LEFT":
         if (param) {
