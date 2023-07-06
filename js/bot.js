@@ -157,7 +157,7 @@ draw() {
         count: bc,
         max: this.maxBullets,
         speed: this.bulletSpeed,
-        damage: this.bulletDamage,
+        bulletDamage: this.bulletDamage,
       },
       { height: game.buffer.height, width: game.buffer.width },
       this.see(game.bots),
@@ -443,7 +443,7 @@ draw() {
           payForUpgrade(p);
           if (canAfford(p)) {
             payForUpgrade(p);
-            me.damage *= 1.5;
+            me.bulletDamage *= 1.5;
             upgraded=true;
           }
         }
